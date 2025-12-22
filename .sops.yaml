@@ -1,0 +1,8 @@
+keys:
+  - &b0nz_default age12ktccm6rhajzle0qxmnfkeperrlvnjhd3cvm9qclshefnx6zrpxs3lagtl
+
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+        - *b0nz_default
