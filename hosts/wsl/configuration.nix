@@ -9,6 +9,7 @@ in
   wsl = {
     enable = true;
     defaultUser = user;
+    useWindowsDriver = true;
   };
 
   networking.hostName = "localdevWSL";
@@ -21,24 +22,30 @@ in
     extraGroups = [
       "wheel"
       "networkmanager"
+      "kvm"
+      "adbusers"
     ]; # 'wheel' allows sodo
 
     # sets the password to 'passoword' ONLY on the first creation
     initialPassword = "password";
   };
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix = {
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+    settings.auto-optimise-store = true;
+  };
 
   security.sudo.wheelNeedsPassword = true;
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
+  hardware.graphics = {
+    enable = true;
   };
-
-  nix.settings.auto-optimise-store = true;
 }

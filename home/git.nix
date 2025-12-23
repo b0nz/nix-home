@@ -1,29 +1,31 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
-  sops.secrets.default_email = { };
-  sops.secrets.work_email = { };
+  sops = {
+    secrets.default_email = { };
+    secrets.work_email = { };
 
-  sops.templates."git-personal" = {
-    content = ''
-      [user]
-        name = b0nz
-        email = ${config.sops.placeholder.default_email}
-      
-      [core]
-        sshCommand = "ssh -i ~/.ssh/id_default"
-    '';
-  };
+    templates."git-personal" = {
+      content = ''
+        [user]
+          name = b0nz
+          email = ${config.sops.placeholder.default_email}
 
-  sops.templates."git-work" = {
-    content = ''
-      [user]
-        name = b0nz
-        email = ${config.sops.placeholder.work_email}
+        [core]
+          sshCommand = "ssh -i ~/.ssh/id_default"
+      '';
+    };
 
-      [core]
-        sshCommand = "ssh -i ~/.ssh/id_work"
-    '';
+    templates."git-work" = {
+      content = ''
+        [user]
+          name = b0nz
+          email = ${config.sops.placeholder.work_email}
+
+        [core]
+          sshCommand = "ssh -i ~/.ssh/id_work"
+      '';
+    };
   };
 
   programs.git = {
@@ -35,11 +37,11 @@
     };
     includes = [
       {
-        path = config.sops.templates."git-personal".path;
+        inherit (config.sops.templates."git-personal") path;
       }
       {
         condition = "gitdir:~/work/";
-	path = config.sops.templates."git-work".path;
+        inherit (config.sops.templates."git-work") path;
       }
     ];
   };
