@@ -15,12 +15,21 @@ _: {
           ];
         };
         theme = "catppuccin";
+        component_separators = "";
+        section_separators = {
+          left = "";
+          right = "";
+        };
       };
       sections = {
         lualine_a = [
           {
             __unkeyed-1 = "mode";
             icon = "";
+            separator = {
+              left = "";
+            };
+            right_padding = 2;
           }
         ];
         lualine_b = [
@@ -84,11 +93,19 @@ _: {
         lualine_y = [
           {
             __unkeyed-1 = "progress";
+            separator = " ";
+            # padding = {
+            # left = 1;
+            # right = 1;
+            # };
           }
         ];
         lualine_z = [
           {
             __unkeyed-1 = "location";
+            separator = {
+              right = "";
+            };
           }
         ];
       };
