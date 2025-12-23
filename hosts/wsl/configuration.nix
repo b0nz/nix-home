@@ -45,6 +45,8 @@ in
 
   security.sudo.wheelNeedsPassword = true;
 
+  programs.nix-ld.enable = true;
+
   hardware.graphics = {
     enable = true;
   };

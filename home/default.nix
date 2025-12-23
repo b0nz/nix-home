@@ -31,6 +31,7 @@
       # AI
       github-copilot-cli
       claude-code
+      opencode
 
       # Editor
       vim
@@ -54,6 +55,7 @@
 
   programs = {
     home-manager.enable = true;
+
 
     # Enable a nice shell prompt (Starship)
     starship = {
