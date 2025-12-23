@@ -43,12 +43,12 @@
 
     # vim
     inputs.nixvim.homeModules.nixvim
-    ./vim.nix
+    ./nvim
   ];
-  
+
   sops.defaultSopsFile = ../secrets/secrets.yaml;
 
-  sops.age.sshKeyPaths = [ 
+  sops.age.sshKeyPaths = [
     "${config.home.homeDirectory}/.ssh/id_default"
   ];
 
