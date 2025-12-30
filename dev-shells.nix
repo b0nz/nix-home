@@ -16,15 +16,41 @@
           '';
         };
 
-        # Next.js / Node Environment
-        nextjs = pkgs.mkShell {
-          name = "nextjs";
+        # Nodejs 20 Environment
+        nodejs20 = pkgs.mkShell {
+          name = "nodejs20";
           packages = with pkgs; [
             nodejs_20
             nodePackages.pnpm
           ];
           shellHook = ''
-            echo "🟢 Next.js (Node 20) Environment Active"
+            echo "🟢 Nodejs 20 Environment Active"
+            export PATH="$PWD/node_modules/.bin:$PATH"
+          '';
+        };
+
+        # Nodejs 22 Environment
+        nodejs22 = pkgs.mkShell {
+          name = "nodejs22";
+          packages = with pkgs; [
+            nodejs_22
+            nodePackages.pnpm
+          ];
+          shellHook = ''
+            echo "🟢 Nodejs 22 Environment Active"
+            export PATH="$PWD/node_modules/.bin:$PATH"
+          '';
+        };
+
+        # Nodejs 24 Environment
+        nodejs24 = pkgs.mkShell {
+          name = "nodejs24";
+          packages = with pkgs; [
+            nodejs_24
+            nodePackages.pnpm
+          ];
+          shellHook = ''
+            echo "🟢 Nodejs 24 Environment Active"
             export PATH="$PWD/node_modules/.bin:$PATH"
           '';
         };
