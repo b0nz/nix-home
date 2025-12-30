@@ -10,7 +10,7 @@
   home = rec {
     username = "b0nz";
     homeDirectory = osConfig.users.users.${username}.home;
-    stateVersion = "25.05";
+    stateVersion = "25.11";
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -55,7 +55,6 @@
 
   programs = {
     home-manager.enable = true;
-
 
     # Enable a nice shell prompt (Starship)
     starship = {

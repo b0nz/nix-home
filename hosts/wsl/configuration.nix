@@ -4,7 +4,7 @@ let
   user = "b0nz";
 in
 {
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 
   wsl = {
     enable = true;
@@ -12,7 +12,7 @@ in
     useWindowsDriver = true;
   };
 
-  networking.hostName = "localdevWSL";
+  networking.hostName = "LocaldevWSL";
 
   nixpkgs.config.allowUnfree = true;
 

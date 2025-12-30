@@ -27,7 +27,7 @@ flake-parts.lib.mkFlake { inherit inputs; } {
   # ==========================================
   flake = {
     nixosConfigurations = {
-      localdevWSL = nixpkgs.lib.nixosSystem {
+      LocaldevWSL = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           # The WSL Module (Replaces <nixos-wsl/modules>)
