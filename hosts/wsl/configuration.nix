@@ -24,11 +24,11 @@ in
   programs.fish.enable = true;
 
   # SOPS configuration
-  sops.age.keyFile = "/home/b0nz/.config/nix-home/.config/sops/age/keys.txt";
+  sops.age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
 
   # SOPS secrets
   sops.secrets.user_password = {
-    sopsFile = ./secrets.yaml;
+    sopsFile = ../secrets/secrets.yaml;
   };
 
   users.users.${user} = {
