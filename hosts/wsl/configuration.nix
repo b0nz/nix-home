@@ -1,4 +1,4 @@
-_:
+{ pkgs, ... }:
 
 let
   user = "b0nz";
@@ -16,9 +16,17 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  # Install fish shell system-wide
+  environment.shells = with pkgs; [ fish ];
+  environment.systemPackages = with pkgs; [ fish ];
+
+  # Enable fish shell program
+  programs.fish.enable = true;
+
   users.users.${user} = {
     isNormalUser = true;
     description = user;
+    shell = pkgs.fish;
     extraGroups = [
       "wheel"
       "networkmanager"

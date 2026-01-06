@@ -12,6 +12,11 @@
     homeDirectory = osConfig.users.users.${username}.home;
     stateVersion = "25.11";
 
+    # Set fish as default shell
+    sessionVariables = {
+      SHELL = "${pkgs.fish}/bin/fish";
+    };
+
     # The home.packages option allows you to install Nix packages into your
     # environment.
     packages = with pkgs; [
@@ -35,6 +40,9 @@
 
       # Editor
       vim
+
+      # Shell
+      fish
     ];
   };
 
@@ -81,7 +89,24 @@
       };
     };
 
-    # Bash Configuration
+    # Fish Configuration
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
+        # Fix SSL certificates for copilot-cli
+        export SSL_CERT_DIR=${pkgs.cacert}/etc/ssl/certs
+        export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
+      '';
+      shellAliases = {
+        ls = "eza --icons";
+        ll = "eza -l -a --icons --git";
+        lt = "eza --tree --level=2 --icons";
+        cat = "bat";
+        nv = "nvim";
+      };
+    };
+
+    # Bash Configuration (keep for compatibility)
     bash = {
       enable = true;
       enableCompletion = true;
@@ -93,6 +118,12 @@
         cat = "bat";
         nv = "nvim";
       };
+
+      initExtra = ''
+        # Fix SSL certificates for copilot-cli
+        export SSL_CERT_DIR=${pkgs.cacert}/etc/ssl/certs
+        export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
+      '';
     };
 
     # Direnv Configuration
