@@ -54,6 +54,7 @@ in
   imports = [
     inputs.sops-nix.homeModules.sops
     ./git.nix
+    ./tmux.nix
 
     # vim
     inputs.nixvim.homeModules.nixvim
@@ -98,6 +99,10 @@ in
     fish = {
       enable = true;
       interactiveShellInit = ''
+        # Set locale for UTF-8 support
+        export LANG=en_US.UTF-8
+        export LC_ALL=en_US.UTF-8
+
         # Fix SSL certificates for copilot-cli
         export SSL_CERT_DIR=${sslCertDir}
         export SSL_CERT_FILE=${sslCertFile}
@@ -125,6 +130,10 @@ in
       };
 
       initExtra = ''
+        # Set locale for UTF-8 support
+        export LANG=en_US.UTF-8
+        export LC_ALL=en_US.UTF-8
+
         # Fix SSL certificates for copilot-cli
         export SSL_CERT_DIR=${sslCertDir}
         export SSL_CERT_FILE=${sslCertFile}
@@ -136,5 +145,5 @@ in
       enable = true;
       nix-direnv.enable = true;
     };
-  };
+   };
 }
