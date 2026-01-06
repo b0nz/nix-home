@@ -6,6 +6,11 @@
   ...
 }:
 
+let
+  sslCertDir = "${pkgs.cacert}/etc/ssl/certs";
+  sslCertFile = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+in
+
 {
   home = rec {
     username = "b0nz";
@@ -94,8 +99,8 @@
       enable = true;
       interactiveShellInit = ''
         # Fix SSL certificates for copilot-cli
-        export SSL_CERT_DIR=${pkgs.cacert}/etc/ssl/certs
-        export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
+        export SSL_CERT_DIR=${sslCertDir}
+        export SSL_CERT_FILE=${sslCertFile}
       '';
       shellAliases = {
         ls = "eza --icons";
@@ -121,8 +126,8 @@
 
       initExtra = ''
         # Fix SSL certificates for copilot-cli
-        export SSL_CERT_DIR=${pkgs.cacert}/etc/ssl/certs
-        export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
+        export SSL_CERT_DIR=${sslCertDir}
+        export SSL_CERT_FILE=${sslCertFile}
       '';
     };
 
