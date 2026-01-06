@@ -18,8 +18,8 @@ flake-parts.lib.mkFlake { inherit inputs; } {
   imports = [
     inputs.pre-commit-hooks.flakeModule
 
-    ../dev-shells.nix
-    ../pre-commit.nix
+    ./dev-shells.nix
+    ./pre-commit.nix
   ];
 
   # ==========================================
