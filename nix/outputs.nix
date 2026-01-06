@@ -6,6 +6,7 @@ let
     nixos-wsl
     home-manager
     flake-parts
+    sops-nix
     ;
 in
 flake-parts.lib.mkFlake { inherit inputs; } {
@@ -32,6 +33,9 @@ flake-parts.lib.mkFlake { inherit inputs; } {
         modules = [
           # The WSL Module (Replaces <nixos-wsl/modules>)
           nixos-wsl.nixosModules.default
+
+          # SOPS for secrets management
+          sops-nix.nixosModules.sops
 
           # System Config
           ../hosts/wsl/configuration.nix

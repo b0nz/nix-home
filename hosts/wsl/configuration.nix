@@ -23,6 +23,14 @@ in
   # Enable fish shell program
   programs.fish.enable = true;
 
+  # SOPS configuration
+  sops.age.keyFile = "/home/b0nz/.config/nix-home/.config/sops/age/keys.txt";
+
+  # SOPS secrets
+  sops.secrets.user_password = {
+    sopsFile = ./secrets.yaml;
+  };
+
   users.users.${user} = {
     isNormalUser = true;
     description = user;
@@ -34,8 +42,8 @@ in
       "adbusers"
     ]; # 'wheel' allows sodo
 
-    # sets the password to 'passoword' ONLY on the first creation
-    initialPassword = "password";
+    # Use SOPS encrypted hashed password
+    hashedPasswordFile = "/run/secrets/user_password";
   };
 
   nix = {
