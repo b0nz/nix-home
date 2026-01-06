@@ -4,6 +4,7 @@ let
   inherit (inputs)
     nixpkgs
     nixos-wsl
+    nix-darwin
     home-manager
     flake-parts
     sops-nix
@@ -42,6 +43,25 @@ flake-parts.lib.mkFlake { inherit inputs; } {
 
           # Home Manager Module (Integrated into the system)
           home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.b0nz = import ../home;
+              extraSpecialArgs = { inherit inputs; };
+            };
+          }
+        ];
+      };
+
+      LocaldevMac = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin"; # or "x86_64-darwin" depending on your Mac
+        modules = [
+          # System Config
+          ../hosts/mac/configuration.nix
+
+          # Home Manager Module
+          home-manager.darwinModules.home-manager
           {
             home-manager = {
               useGlobalPkgs = true;

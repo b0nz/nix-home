@@ -28,7 +28,7 @@ in
 
   # SOPS secrets
   sops.secrets.user_password = {
-    sopsFile = ../secrets/secrets.yaml;
+    sopsFile = ../../secrets/secrets.yaml;
   };
 
   users.users.${user} = {
