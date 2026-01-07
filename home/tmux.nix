@@ -1,5 +1,14 @@
 { pkgs, ... }:
 
+let
+  # Script to copy to WSL clipboard with proper UTF-8 encoding
+  wsl-copy = pkgs.writeShellScriptBin "wsl-copy" ''
+    #!/bin/sh
+    # Convert UTF-8 and copy to Windows clipboard
+    iconv -f UTF-8 -t UTF-16LE | clip.exe
+  '';
+in
+
 {
   programs.tmux = {
     enable = true;
@@ -17,6 +26,13 @@
       # Enable true color and UTF-8
       set -as terminal-overrides ',*:Tc'
       set -g default-terminal "tmux-256color"
+
+      # Mouse support
+      set -g mouse on
+      # Double click to copy word (using tmux-yank)
+      bind-key -T root DoubleClick1Pane select-pane \; send-keys -X select-word \; run-shell -d 0.3 \; send-keys -X copy-pipe
+      # Triple click to copy line (using tmux-yank)
+      bind-key -T root TripleClick1Pane select-pane \; send-keys -X select-line \; run-shell -d 0.3 \; send-keys -X copy-pipe
 
       # Better pane splitting
       bind | split-window -h
@@ -36,10 +52,14 @@
       bind K resize-pane -U 10
       bind L resize-pane -R 10
 
-      # Copy mode
+      # Copy mode (let tmux-yank handle the copying)
       bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi y send-keys -X copy-selection
+      bind-key -T copy-mode-vi y send-keys -X copy-pipe
       bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
+      bind-key -T copy-mode-vi Enter send-keys -X copy-pipe
+      # Mouse bindings for copy mode (handled by tmux-yank)
+      bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe
+      bind-key -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe
 
       # Position status bar at top
       set -g status-position top
@@ -57,7 +77,17 @@
 
     plugins = with pkgs.tmuxPlugins; [
       sensible
-      yank
+      {
+        plugin = yank;
+        extraConfig = ''
+          # Configure yank for WSL with proper UTF-8 support
+          set -g @yank_selection 'clipboard'
+          set -g @yank_action 'copy-pipe-no-clear'
+          set -g @yank_selection_mouse 'clipboard'
+          # Use custom script that handles UTF-8 correctly for WSL
+          set -g @yank_shell "${wsl-copy}/bin/wsl-copy"
+        '';
+      }
       resurrect
       continuum
       {
