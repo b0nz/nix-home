@@ -106,6 +106,12 @@ in
         # Fix SSL certificates for copilot-cli
         export SSL_CERT_DIR=${sslCertDir}
         export SSL_CERT_FILE=${sslCertFile}
+
+        # Auto-launch tmux
+        if status --is-interactive
+        and not set -q TMUX
+            exec tmux new-session -A -s main
+        end
       '';
       shellAliases = {
         ls = "eza --icons";
@@ -137,6 +143,11 @@ in
         # Fix SSL certificates for copilot-cli
         export SSL_CERT_DIR=${sslCertDir}
         export SSL_CERT_FILE=${sslCertFile}
+
+        # Auto-launch tmux
+        if [ -n "$BASH_VERSION" ] && [ -z "$TMUX" ] && [ -t 1 ]; then
+            exec tmux new-session -A -s main
+        fi
       '';
     };
 
