@@ -110,7 +110,7 @@ in
         # Auto-launch tmux
         if status --is-interactive
         and not set -q TMUX
-            exec tmux new-session -A -s main
+            exec tmux new-session -A -s sessionX
         end
       '';
       shellAliases = {
@@ -119,6 +119,12 @@ in
         lt = "eza --tree --level=2 --icons";
         cat = "bat";
         nv = "nvim";
+      };
+
+      functions = {
+        fish_greeting = {
+          body = "";
+        };
       };
     };
 
@@ -146,7 +152,7 @@ in
 
         # Auto-launch tmux
         if [ -n "$BASH_VERSION" ] && [ -z "$TMUX" ] && [ -t 1 ]; then
-            exec tmux new-session -A -s main
+            exec tmux new-session -A -s sessionX
         fi
       '';
     };
@@ -156,5 +162,5 @@ in
       enable = true;
       nix-direnv.enable = true;
     };
-   };
+  };
 }
