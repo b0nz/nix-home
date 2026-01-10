@@ -28,6 +28,17 @@ flake-parts.lib.mkFlake { inherit inputs; } {
   # GLOBAL SYSTEM CONFIGURATION
   # ==========================================
   flake = {
+    homeConfigurations = {
+      "b0nz@LocaldevMac" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "aarch64-darwin";
+          config.allowUnfree = true;
+        };
+        modules = [ ../home ];
+        extraSpecialArgs = { inherit inputs; };
+      };
+    };
+
     nixosConfigurations = {
       LocaldevWSL = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

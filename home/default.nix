@@ -1,6 +1,5 @@
 {
   pkgs,
-  osConfig,
   inputs,
   config,
   ...
@@ -14,7 +13,7 @@ in
 {
   home = rec {
     username = "b0nz";
-    homeDirectory = osConfig.users.users.${username}.home;
+    homeDirectory = "/home/${username}";
     stateVersion = "25.11";
 
     # Set fish as default shell
@@ -48,6 +47,10 @@ in
 
       # Shell
       fish
+
+      # Docker
+      docker
+      docker-compose
     ];
   };
 
@@ -107,6 +110,9 @@ in
         export SSL_CERT_DIR=${sslCertDir}
         export SSL_CERT_FILE=${sslCertFile}
 
+        # Docker configuration
+        export DOCKER_HOST=unix:///var/run/docker.sock
+
         # Auto-launch tmux
         if status --is-interactive
         and not set -q TMUX
@@ -149,6 +155,9 @@ in
         # Fix SSL certificates for copilot-cli
         export SSL_CERT_DIR=${sslCertDir}
         export SSL_CERT_FILE=${sslCertFile}
+
+        # Docker configuration
+        export DOCKER_HOST=unix:///var/run/docker.sock
 
         # Auto-launch tmux
         if [ -n "$BASH_VERSION" ] && [ -z "$TMUX" ] && [ -t 1 ]; then

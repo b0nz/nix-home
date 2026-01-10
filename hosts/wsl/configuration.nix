@@ -44,6 +44,7 @@ in
       "networkmanager"
       "kvm"
       "adbusers"
+      "docker"
     ]; # 'wheel' allows sodo
 
     # Use SOPS encrypted hashed password

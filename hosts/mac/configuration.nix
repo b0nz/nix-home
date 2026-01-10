@@ -11,7 +11,8 @@ in
 
   # System packages
   environment.systemPackages = with pkgs; [
-    # Add your system packages here
+    docker
+    docker-compose
   ];
 
   # User configuration
@@ -20,6 +21,9 @@ in
     home = "/Users/${user}";
     shell = pkgs.fish;
   };
+
+  # Docker for Mac
+  environment.variables.DOCKER_HOST = "unix:///var/run/docker.sock";
 
   # Homebrew (optional, if you want to use it alongside Nix)
   homebrew = {
