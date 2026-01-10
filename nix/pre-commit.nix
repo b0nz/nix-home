@@ -5,7 +5,7 @@
 
       settings.hooks = {
         # 1. Nix Formatter
-        nixfmt-rfc-style.enable = true;
+        nixfmt.enable = true;
 
         # 2. Linter: Detects unused variables
         deadnix.enable = true;
