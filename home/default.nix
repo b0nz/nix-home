@@ -29,6 +29,7 @@ in
       git
       wget
       curl
+      unzip
 
       # Monitoring
       btop
