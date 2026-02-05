@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+_: {
   plugins = {
     lsp-lines = {
       enable = true;
@@ -14,45 +13,15 @@
       enable = true;
       inlayHints = true;
       servers = {
-        html = {
-          enable = true;
-        };
-        lua_ls = {
-          enable = true;
-        };
+        # Only nil_ls is kept as Nix-managed
+        # All other LSP servers are managed by Mason
         nil_ls = {
-          enable = true;
-        };
-        ts_ls = {
-          enable = true;
-        };
-        marksman = {
-          enable = true;
-        };
-        pyright = {
-          enable = true;
-        };
-        gopls = {
-          enable = true;
-        };
-        terraformls = {
           enable = true;
         };
         jsonls = {
           enable = true;
         };
-        helm_ls = {
-          enable = true;
-          extraOptions = {
-            settings = {
-              "helm_ls" = {
-                yamlls = {
-                  path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
-                };
-              };
-            };
-          };
-        };
+        # Mason-managed servers with custom settings:
         yamlls = {
           enable = true;
           extraOptions = {
@@ -142,9 +111,6 @@
       };
     };
   };
-  extraPlugins = with pkgs.vimPlugins; [
-    ansible-vim
-  ];
 
   extraConfigLua = ''
     local _border = "rounded"

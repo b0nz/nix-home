@@ -35,6 +35,7 @@ _: {
     ./plugins/ui/startup.nix
 
     # LSP and formatting
+    ./plugins/lsp/mason.nix
     ./plugins/lsp/lsp.nix
     ./plugins/lsp/highlight-colors.nix
     ./plugins/lsp/tailwind-sorter.nix

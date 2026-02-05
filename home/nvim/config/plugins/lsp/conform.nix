@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
-{
+_: {
   config = {
     extraConfigLuaPre =
       # lua
@@ -125,44 +120,8 @@
           "_" = [ "trim_whitespace" ];
         };
 
-        formatters = {
-          black = {
-            command = "${lib.getExe pkgs.black}";
-          };
-          isort = {
-            command = "${lib.getExe pkgs.isort}";
-          };
-          nixfmt = {
-            command = "${lib.getExe pkgs.nixfmt}";
-          };
-          alejandra = {
-            command = "${lib.getExe pkgs.alejandra}";
-          };
-          jq = {
-            command = "${lib.getExe pkgs.jq}";
-          };
-          prettierd = {
-            command = "${lib.getExe pkgs.prettierd}";
-          };
-          stylua = {
-            command = "${lib.getExe pkgs.stylua}";
-          };
-          shellcheck = {
-            command = "${lib.getExe pkgs.shellcheck}";
-          };
-          shfmt = {
-            command = "${lib.getExe pkgs.shfmt}";
-          };
-          shellharden = {
-            command = "${lib.getExe pkgs.shellharden}";
-          };
-          bicep = {
-            command = "${lib.getExe pkgs.bicep}";
-          };
-          #yamlfmt = {
-          #  command = "${lib.getExe pkgs.yamlfmt}";
-          #};
-        };
+        # Formatters are now managed by Mason
+        # No need to specify Nix package paths - Mason provides them in PATH
       };
     };
   };
