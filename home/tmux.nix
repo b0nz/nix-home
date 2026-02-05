@@ -36,8 +36,8 @@ in
       bind-key -T root TripleClick1Pane select-pane \; send-keys -X select-line \; run-shell -d 0.3 \; send-keys -X copy-pipe
 
       # Better pane splitting
-      bind | split-window -h
-      bind - split-window -v
+      bind | split-window -h -c '#{pane_current_path}'
+      bind - split-window -v -c '#{pane_current_path}'
       unbind '"'
       unbind %
 
