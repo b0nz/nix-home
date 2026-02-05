@@ -17,7 +17,7 @@ in
     escapeTime = 0;
     keyMode = "vi";
     mouse = true;
-    prefix = "C-Space";
+    prefix = "C-b";
     sensibleOnTop = true;
     terminal = "tmux-256color";
     shell = "${pkgs.fish}/bin/fish";
