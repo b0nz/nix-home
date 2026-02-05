@@ -83,6 +83,7 @@
       enable = false;
     }; # autocomplete for cmdline
   };
+
   extraConfigLua = ''
         luasnip = require("luasnip")
         kind_icons = {

@@ -36,7 +36,8 @@ _: {
 
     # LSP and formatting
     ./plugins/lsp/lsp.nix
-    ./plugins/lsp/tailwind-tools.nix
+    ./plugins/lsp/highlight-colors.nix
+    ./plugins/lsp/tailwind-sorter.nix
     ./plugins/lsp/conform.nix
     ./plugins/lsp/fidget.nix
 
