@@ -22,6 +22,41 @@ _: {
           enable = true;
         };
         # Mason-managed servers with custom settings:
+        ts_ls = {
+          enable = true;
+          filetypes = [
+            "javascript"
+            "javascriptreact"
+            "typescript"
+            "typescriptreact"
+          ];
+          extraOptions = {
+            settings = {
+              javascript = {
+                inlayHints = {
+                  includeInlayEnumMemberValueHints = true;
+                  includeInlayFunctionLikeReturnTypeHints = true;
+                  includeInlayFunctionParameterTypeHints = true;
+                  includeInlayParameterNameHints = "all";
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = true;
+                  includeInlayPropertyDeclarationTypeHints = true;
+                  includeInlayVariableTypeHints = true;
+                };
+              };
+              typescript = {
+                inlayHints = {
+                  includeInlayEnumMemberValueHints = true;
+                  includeInlayFunctionLikeReturnTypeHints = true;
+                  includeInlayFunctionParameterTypeHints = true;
+                  includeInlayParameterNameHints = "all";
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = true;
+                  includeInlayPropertyDeclarationTypeHints = true;
+                  includeInlayVariableTypeHints = true;
+                };
+              };
+            };
+          };
+        };
         yamlls = {
           enable = true;
           extraOptions = {
