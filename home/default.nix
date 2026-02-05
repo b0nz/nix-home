@@ -113,6 +113,13 @@ in
         # Docker configuration
         export DOCKER_HOST=unix:///var/run/docker.sock
 
+        # SSH agent setup
+        if not set -q SSH_AUTH_SOCK
+            eval (ssh-agent -c)
+            ssh-add ~/.ssh/id_default >/dev/null 2>&1
+            ssh-add ~/.ssh/id_work >/dev/null 2>&1
+        end
+
         # Auto-launch tmux
         if status --is-interactive
         and not set -q TMUX
@@ -158,6 +165,13 @@ in
 
         # Docker configuration
         export DOCKER_HOST=unix:///var/run/docker.sock
+
+        # SSH agent setup
+        if [ -z "$SSH_AUTH_SOCK" ]; then
+            eval $(ssh-agent -s)
+            ssh-add ~/.ssh/id_default >/dev/null 2>&1
+            ssh-add ~/.ssh/id_work >/dev/null 2>&1
+        fi
 
         # Auto-launch tmux
         if [ -n "$BASH_VERSION" ] && [ -z "$TMUX" ] && [ -t 1 ]; then
