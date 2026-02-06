@@ -52,11 +52,17 @@
       # Enable mouse support
       mouse = "a";
 
-      # Set folding method to manual
-      foldmethod = "manual";
+      # Set folding method to expression (treesitter)
+      foldmethod = "expr";
+      foldexpr = "v:lua.vim.treesitter.foldexpr()";
 
-      # Disable folding by default
+      # Enable folding by default
       foldenable = false;
+      foldcolumn = "0";
+      foldtext = "";
+      foldlevel = 99;
+      foldlevelstart = 1;
+      foldnestmax = 4;
 
       # Wrap long lines at a character in 'breakat'
       linebreak = true;

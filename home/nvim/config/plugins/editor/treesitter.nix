@@ -6,7 +6,7 @@
       indent.enable = true;
       highlight.enable = true;
     };
-    folding.enable = false;
+    folding.enable = true;
     nixvimInjections = true;
     # Use all available grammars - simpler and more robust
     grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
