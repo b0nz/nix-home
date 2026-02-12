@@ -23,36 +23,39 @@ in
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
-    packages = with pkgs; [
-      fastfetch
-      neofetch
-      git
-      wget
-      curl
-      unzip
+    packages =
+      with pkgs;
+      [
+        fastfetch
+        neofetch
+        git
+        wget
+        curl
+        unzip
 
-      # Monitoring
-      btop
+        # Monitoring
+        btop
 
-      # TUI App
-      lazygit
-      lazydocker
+        # TUI App
+        lazygit
+        lazydocker
 
-      # AI
-      github-copilot-cli
-      claude-code
-      opencode
+        # AI
+        github-copilot-cli
+        claude-code
+        opencode
 
-      # Editor
-      vim
+        # Editor
+        vim
 
-      # Shell
-      fish
+        # Shell
+        fish
 
-      # Docker
-      docker
-      docker-compose
-    ];
+        # Docker
+        docker
+        docker-compose
+      ]
+      ++ pkgs.lib.optionals pkgs.stdenv.isDarwin (import ./mac-apps.nix { inherit pkgs; }).home.packages;
   };
 
   imports = [

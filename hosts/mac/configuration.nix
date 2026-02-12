@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 let
   user = "b0nz";
@@ -31,7 +31,7 @@ in
       # Add homebrew formulae here
     ];
     casks = [
-      # Add homebrew casks here
+      "cloudflare-warp"
     ];
   };
 
@@ -63,6 +63,9 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Allow insecure packages (some browsers require this)
+  nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
 
   # Security settings
   security.pam.services.sudo_local.touchIdAuth = true;
