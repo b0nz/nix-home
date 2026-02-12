@@ -59,6 +59,7 @@ in
     inputs.sops-nix.homeModules.sops
     ./git.nix
     ./tmux.nix
+    ./fonts.nix
 
     # vim
     inputs.nixvim.homeModules.nixvim
