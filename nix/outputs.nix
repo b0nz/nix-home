@@ -64,7 +64,9 @@ flake-parts.lib.mkFlake { inherit inputs; } {
           }
         ];
       };
+    };
 
+    darwinConfigurations = {
       LocaldevMac = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin"; # or "x86_64-darwin" depending on your Mac
         modules = [

@@ -13,7 +13,7 @@ in
 {
   home = rec {
     username = "b0nz";
-    homeDirectory = "/home/${username}";
+    homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
     stateVersion = "25.11";
 
     # Set fish as default shell

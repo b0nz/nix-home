@@ -1,11 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   user = "b0nz";
 in
 {
   # nix-darwin specific settings
-  services.nix-daemon.enable = true;
 
   networking.hostName = "LocaldevMac";
 
@@ -38,7 +37,8 @@ in
 
   # System settings
   system = {
-    stateVersion = 4;
+    stateVersion = 5;
+    primaryUser = "b0nz";
 
     defaults = {
       # Finder settings
@@ -58,22 +58,14 @@ in
     };
   };
 
-  # Nix settings
-  nix = {
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    gc = {
-      automatic = true;
-      interval = { Weekday = 0; Hour = 2; Minute = 0; };
-      options = "--delete-older-than 30d";
-    };
-    settings.auto-optimise-store = true;
-  };
+  # Nix settings - disabled to work with Determinate Nix
+  nix.enable = false;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # Security settings
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # Programs
   programs.fish.enable = true;
