@@ -22,6 +22,7 @@ _: {
     # Editor plugins and configurations
     ./plugins/editor/neo-tree.nix
     ./plugins/editor/treesitter.nix
+    ./plugins/editor/ts-autotag.nix
     ./plugins/editor/undotree.nix
     ./plugins/editor/illuminate.nix
     ./plugins/editor/indent-blankline.nix
@@ -37,6 +38,7 @@ _: {
     # LSP and formatting
     ./plugins/lsp/mason.nix
     ./plugins/lsp/lsp.nix
+    ./plugins/lsp/typescript-tools.nix
     ./plugins/lsp/highlight-colors.nix
     ./plugins/lsp/tailwind-sorter.nix
     ./plugins/lsp/conform.nix
@@ -49,6 +51,7 @@ _: {
     # Utils
     ./plugins/utils/telescope.nix
     ./plugins/utils/whichkey.nix
+    ./plugins/utils/actions-preview.nix
     ./plugins/utils/extra_plugins.nix
     ./plugins/utils/mini.nix
     ./plugins/utils/markdown-preview.nix

@@ -5,7 +5,7 @@ _: {
 
   keymaps = [
     {
-      key = "<leader>ct";
+      key = "<leader>cC";
       action = "<CMD>CopilotChatToggle<CR>";
       options.desc = "Toggle Copilot Chat Window";
     }
@@ -15,7 +15,7 @@ _: {
       options.desc = "Stop current Copilot output";
     }
     {
-      key = "<leader>cr";
+      key = "<leader>cR";
       action = "<CMD>CopilotChatReview<CR>";
       options.desc = "Review the selected code";
     }
@@ -25,7 +25,7 @@ _: {
       options.desc = "Give an explanation for the selected code";
     }
     {
-      key = "<leader>cd";
+      key = "<leader>cD";
       action = "<CMD>CopilotChatDocs<CR>";
       options.desc = "Add documentation for the selection";
     }

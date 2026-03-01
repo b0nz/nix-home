@@ -23,7 +23,7 @@ _: {
         };
         # Mason-managed servers with custom settings:
         ts_ls = {
-          enable = true;
+          enable = false;
           filetypes = [
             "javascript"
             "javascriptreact"
@@ -120,6 +120,10 @@ _: {
             action = "hover";
             desc = "Hover";
           };
+          "<leader>ca" = {
+            action = "code_action";
+            desc = "Code Action";
+          };
           "<leader>cw" = {
             action = "workspace_symbol";
             desc = "Workspace Symbol";
@@ -169,5 +173,23 @@ _: {
     require('lspconfig.ui.windows').default_options = {
       border = _border
     }
+
+    -- Organize imports function for TypeScript/JavaScript
+    local function organize_imports()
+      local params = {
+        command = "_typescript.organizeImports",
+        arguments = {vim.api.nvim_buf_get_name(0)},
+      }
+      vim.lsp.buf.execute_command(params)
+    end
+
+    -- Set up organize imports keymap
+    vim.keymap.set('n', '<leader>co', organize_imports, { desc = 'Organize Imports' })
+
+    -- Use actions-preview for code actions if available
+    local has_actions_preview, actions_preview = pcall(require, "actions-preview")
+    if has_actions_preview then
+      vim.keymap.set('n', '<leader>ca', actions_preview.code_actions, { desc = 'Code Action' })
+    end
   '';
 }

@@ -38,6 +38,7 @@
         "marksman",
         "helm_ls",
         "html",
+        "rust_analyzer",
       },
       automatic_installation = true,
     })

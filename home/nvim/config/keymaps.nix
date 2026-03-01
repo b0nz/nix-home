@@ -269,14 +269,6 @@
     }
     {
       mode = "n";
-      key = "<leader>cd";
-      action = "vim.diagnostic.open_float";
-      options = {
-        desc = "Line Diagnostics";
-      };
-    }
-    {
-      mode = "n";
       key = "]d";
       action = "diagnostic_goto(true)";
       options = {
