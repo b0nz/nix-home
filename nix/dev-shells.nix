@@ -7,12 +7,14 @@
         default = pkgs.mkShell {
           name = "dotfiles-shell";
           nativeBuildInputs = with pkgs; [
+            fish
             sops
             ssh-to-age
           ];
           shellHook = ''
             echo "🛠️  Dotfiles Config Environment Active"
             ${config."pre-commit".installationScript}
+            exec ${pkgs.fish}/bin/fish
           '';
         };
 
@@ -20,12 +22,14 @@
         nodejs20 = pkgs.mkShell {
           name = "nodejs20";
           packages = with pkgs; [
+            fish
             nodejs_20
             nodePackages.pnpm
           ];
           shellHook = ''
             echo "🟢 Nodejs 20 Environment Active"
             export PATH="$PWD/node_modules/.bin:$PATH"
+            exec ${pkgs.fish}/bin/fish
           '';
         };
 
@@ -33,12 +37,14 @@
         nodejs22 = pkgs.mkShell {
           name = "nodejs22";
           packages = with pkgs; [
+            fish
             nodejs_22
             nodePackages.pnpm
           ];
           shellHook = ''
             echo "🟢 Nodejs 22 Environment Active"
             export PATH="$PWD/node_modules/.bin:$PATH"
+            exec ${pkgs.fish}/bin/fish
           '';
         };
 
@@ -46,12 +52,14 @@
         nodejs24 = pkgs.mkShell {
           name = "nodejs24";
           packages = with pkgs; [
+            fish
             nodejs_24
             nodePackages.pnpm
           ];
           shellHook = ''
             echo "🟢 Nodejs 24 Environment Active"
             export PATH="$PWD/node_modules/.bin:$PATH"
+            exec ${pkgs.fish}/bin/fish
           '';
         };
 
@@ -59,6 +67,7 @@
         go = pkgs.mkShell {
           name = "go";
           packages = with pkgs; [
+            fish
             go
             gopls
             gotools
@@ -69,6 +78,7 @@
             echo "🔵 Go Environment Active"
             export GOPATH="$(${pkgs.go}/bin/go env GOPATH)"
             export PATH="$PATH:$GOPATH/bin"
+            exec ${pkgs.fish}/bin/fish
           '';
         };
 
@@ -76,6 +86,7 @@
         rust = pkgs.mkShell {
           name = "rust";
           packages = with pkgs; [
+            fish
             cargo
             rustc
             rustfmt
@@ -87,6 +98,7 @@
           RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
           shellHook = ''
             echo "🦀 Rust Environment Active"
+            exec ${pkgs.fish}/bin/fish
           '';
         };
 
@@ -94,6 +106,7 @@
         android = pkgs.mkShell {
           name = "android";
           buildInputs = with pkgs; [
+            fish
             android-tools
             android-studio
             zulu17
@@ -106,6 +119,7 @@
 
             echo "🤖 Android Dev Environment Ready"
             echo "KVM Access: $([ -w /dev/kvm ] && echo '✅ Granted' || echo '❌ Denied (Check configuration.nix)')"
+            exec ${pkgs.fish}/bin/fish
           '';
         };
       };
