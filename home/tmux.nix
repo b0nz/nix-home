@@ -95,19 +95,21 @@ in
         plugin = catppuccin;
         extraConfig = ''
           set -g @catppuccin_flavor 'macchiato'
-          set -g @catppuccin_window_status_style "rounded"
+          set -g @catppuccin_window_status_style "basic"
           set -g @catppuccin_window_number_position "right"
           set -g @catppuccin_window_default_fill "number"
           set -g @catppuccin_window_default_text "#W"
           set -g @catppuccin_window_current_fill "number"
           set -g @catppuccin_window_current_text "#W"
-          set -g @catppuccin_status_right_separator_inverse "no"
-          set -g @catppuccin_status_fill "icon"
-          set -g @catppuccin_status_left_separator ""
-          set -g @catppuccin_status_right_separator ""
-          set -g @catppuccin_status_connect_separator "no"
-          set -g status-right-length 100
-          set -g status-left-length 100
+          # set -g @catppuccin_status_right_separator_inverse "no"
+          # set -g @catppuccin_status_fill "icon"
+          # set -g @catppuccin_status_left_separator ""
+          # set -g @catppuccin_status_right_separator ""
+          set -g @catppuccin_status_right_separator "█"
+          set -g @catppuccin_status_left_separator "█"
+          # set -g @catppuccin_status_connect_separator "no"
+          # set -g status-right-length 100
+          # set -g status-left-length 100
 
           # Enhanced left status
           set -g status-left ""
