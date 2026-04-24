@@ -22,7 +22,10 @@ in
 
   # Install fish shell system-wide
   environment.shells = with pkgs; [ fish ];
-  environment.systemPackages = with pkgs; [ fish ];
+  environment.systemPackages = with pkgs; [
+    fish
+    gcc
+  ];
 
   # Enable fish shell program
   programs.fish.enable = true;

@@ -47,6 +47,7 @@ in
 
         # Editor
         vim
+        neovim
 
         # Shell
         fish
@@ -65,8 +66,8 @@ in
     ./fonts.nix
 
     # vim
-    inputs.nixvim.homeModules.nixvim
-    ./nvim
+    # inputs.nixvim.homeModules.nixvim
+    # ./nvim
   ];
 
   sops.defaultSopsFile = ../secrets/secrets.yaml;
