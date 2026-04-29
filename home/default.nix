@@ -32,6 +32,7 @@ in
         wget
         curl
         unzip
+        ripgrep
 
         # Monitoring
         btop
