@@ -3,6 +3,7 @@
 
 add_newline = true
 command_timeout = 200
+scan_timeout = 100
 
 # Sets user-defined palette
 # Palettes must be defined _after_ this line
