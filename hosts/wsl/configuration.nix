@@ -74,4 +74,6 @@ in
   hardware.graphics = {
     enable = true;
   };
+
+  virtualisation.docker.enable = true;
 }
