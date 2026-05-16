@@ -66,9 +66,6 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Allow insecure packages (some browsers require this)
-  nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
-
   # Security settings
   security.pam.services.sudo_local.touchIdAuth = true;
 

@@ -8,6 +8,43 @@
 let
   sslCertDir = "${pkgs.cacert}/etc/ssl/certs";
   sslCertFile = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+
+  # Platform-conditional SSH agent init
+  # macOS: system ssh-agent via launchd, passphrases in Keychain
+  # Linux: custom ssh-agent per session
+  fishSshInit =
+    if pkgs.stdenv.isDarwin then
+      ''
+        if set -q SSH_AUTH_SOCK
+            ssh-add --apple-use-keychain ~/.ssh/id_default >/dev/null 2>&1
+            ssh-add --apple-use-keychain ~/.ssh/id_work >/dev/null 2>&1
+        end
+      ''
+    else
+      ''
+        if not set -q SSH_AUTH_SOCK
+            eval (ssh-agent -c)
+            ssh-add ~/.ssh/id_default >/dev/null 2>&1
+            ssh-add ~/.ssh/id_work >/dev/null 2>&1
+        end
+      '';
+
+  bashSshInit =
+    if pkgs.stdenv.isDarwin then
+      ''
+        if [ -n "$SSH_AUTH_SOCK" ]; then
+            ssh-add --apple-use-keychain ~/.ssh/id_default >/dev/null 2>&1
+            ssh-add --apple-use-keychain ~/.ssh/id_work >/dev/null 2>&1
+        fi
+      ''
+    else
+      ''
+        if [ -z "$SSH_AUTH_SOCK" ]; then
+            eval $(ssh-agent -s)
+            ssh-add ~/.ssh/id_default >/dev/null 2>&1
+            ssh-add ~/.ssh/id_work >/dev/null 2>&1
+        fi
+      '';
 in
 
 {
@@ -121,11 +158,7 @@ in
         export DOCKER_HOST=unix:///var/run/docker.sock
 
         # SSH agent setup
-        if not set -q SSH_AUTH_SOCK
-            eval (ssh-agent -c)
-            ssh-add ~/.ssh/id_default >/dev/null 2>&1
-            ssh-add ~/.ssh/id_work >/dev/null 2>&1
-        end
+        ${fishSshInit}
 
         # Auto-launch tmux
         if status --is-interactive
@@ -174,11 +207,7 @@ in
         export DOCKER_HOST=unix:///var/run/docker.sock
 
         # SSH agent setup
-        if [ -z "$SSH_AUTH_SOCK" ]; then
-            eval $(ssh-agent -s)
-            ssh-add ~/.ssh/id_default >/dev/null 2>&1
-            ssh-add ~/.ssh/id_work >/dev/null 2>&1
-        fi
+        ${bashSshInit}
 
         # Auto-launch tmux
         if [ -n "$BASH_VERSION" ] && [ -z "$TMUX" ] && [ -t 1 ]; then
@@ -191,6 +220,22 @@ in
     direnv = {
       enable = true;
       nix-direnv.enable = true;
+    };
+
+    # SSH client config
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "*" = {
+          extraOptions = {
+            AddKeysToAgent = "yes";
+          }
+          // pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
+            UseKeychain = "yes";
+          };
+        };
+      };
     };
   };
 }

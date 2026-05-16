@@ -48,7 +48,7 @@ in
       "kvm"
       "adbusers"
       "docker"
-    ]; # 'wheel' allows sodo
+    ]; # 'wheel' allows sudo
 
     # Use SOPS encrypted hashed password
     hashedPasswordFile = "/run/secrets/user_password";
