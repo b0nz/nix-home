@@ -3,10 +3,9 @@
 {
   home.packages = with pkgs; [
     # Browser
-    brave
+    # brave
 
-    # Window Tiling
-    rectangle
+    spotify
 
     # Terminal
     ghostty-bin

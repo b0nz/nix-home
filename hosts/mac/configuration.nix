@@ -32,6 +32,8 @@ in
     ];
     casks = [
       "cloudflare-warp"
+      "steam"
+      "rectangle"
     ];
   };
 
