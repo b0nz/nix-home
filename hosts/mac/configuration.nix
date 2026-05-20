@@ -28,7 +28,8 @@ in
   homebrew = {
     enable = true;
     brews = [
-      # Add homebrew formulae here
+      # utils
+      "mole"
     ];
     casks = [
       "cloudflare-warp"
@@ -70,7 +71,12 @@ in
   security.pam.services.sudo_local.touchIdAuth = true;
 
   # Programs
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    shellInit = ''
+      fish_add_path /opt/homebrew/bin
+    '';
+  };
 
   # Add more configuration as needed
 }
