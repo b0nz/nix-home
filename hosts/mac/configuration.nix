@@ -8,12 +8,6 @@ in
 
   networking.hostName = "LocaldevMac";
 
-  # System packages
-  environment.systemPackages = with pkgs; [
-    docker
-    docker-compose
-  ];
-
   # User configuration
   users.users.${user} = {
     name = user;
