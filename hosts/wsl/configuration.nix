@@ -25,6 +25,8 @@ in
   environment.systemPackages = with pkgs; [
     fish
     gcc
+    gnumake
+    python3
   ];
 
   # Enable fish shell program
