@@ -45,6 +45,15 @@ let
             ssh-add ~/.ssh/id_work >/dev/null 2>&1
         fi
       '';
+
+  sharedShellAliases = {
+    ls = "eza --icons";
+    ll = "eza -l -a --icons --git";
+    lt = "eza --tree --level=2 --icons";
+    cat = "bat";
+    nv = "nvim";
+    g = "git";
+  };
 in
 
 {
@@ -166,13 +175,7 @@ in
             exec tmux new-session -A -s sessionX
         end
       '';
-      shellAliases = {
-        ls = "eza --icons";
-        ll = "eza -l -a --icons --git";
-        lt = "eza --tree --level=2 --icons";
-        cat = "bat";
-        nv = "nvim";
-      };
+      shellAliases = sharedShellAliases;
 
       functions = {
         fish_greeting = {
@@ -186,13 +189,7 @@ in
       enable = true;
       enableCompletion = true;
 
-      shellAliases = {
-        ls = "eza --icons";
-        ll = "eza -l -a --icons --git";
-        lt = "eza --tree --level=2 --icons";
-        cat = "bat";
-        nv = "nvim";
-      };
+      shellAliases = sharedShellAliases;
 
       initExtra = ''
         # Set locale for UTF-8 support
