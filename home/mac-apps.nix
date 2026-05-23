@@ -12,5 +12,6 @@
 
     # Utils
     maccy
+    colima
   ];
 }

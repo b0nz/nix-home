@@ -14,10 +14,8 @@ in
     home = "/Users/${user}";
     shell = pkgs.fish;
   };
-
   # Docker for Mac
-  environment.variables.DOCKER_HOST = "unix:///var/run/docker.sock";
-
+  environment.variables.DOCKER_HOST = "unix:///Users/${user}/.colima/default/docker.sock";
   # Homebrew (optional, if you want to use it alongside Nix)
   homebrew = {
     enable = true;

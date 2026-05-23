@@ -91,6 +91,7 @@ in
         github-copilot-cli
         claude-code
         opencode
+        ollama
 
         # Editor
         vim
@@ -164,7 +165,11 @@ in
         export SSL_CERT_FILE=${sslCertFile}
 
         # Docker configuration
-        export DOCKER_HOST=unix:///var/run/docker.sock
+        if test (uname) = "Darwin"
+            set -gx DOCKER_HOST "unix://$HOME/.colima/default/docker.sock"
+        else
+            set -gx DOCKER_HOST "unix:///var/run/docker.sock"
+        end
 
         # SSH agent setup
         ${fishSshInit}
@@ -201,7 +206,11 @@ in
         export SSL_CERT_FILE=${sslCertFile}
 
         # Docker configuration
-        export DOCKER_HOST=unix:///var/run/docker.sock
+        if [ "$(uname)" = "Darwin" ]; then
+            export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
+        else
+            export DOCKER_HOST="unix:///var/run/docker.sock"
+        fi
 
         # SSH agent setup
         ${bashSshInit}
