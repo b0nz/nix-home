@@ -1,5 +1,5 @@
 {
-  perSystem = { pkgs, ... }: {
+  perSystem = _: {
     pre-commit = {
       check.enable = true;
 
@@ -15,7 +15,7 @@
 
         # 4. Shell Script Linter (optional)
         shellcheck.enable = true;
-        
+
         # 5. Lua Formatter (for your LazyVim files)
         stylua.enable = true;
       };

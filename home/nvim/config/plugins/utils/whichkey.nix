@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+_: {
   plugins.which-key = {
     enable = true;
     settings = {
