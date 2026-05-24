@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   user = "b0nz";
@@ -32,12 +37,17 @@ in
   # Enable fish shell program
   programs.fish.enable = true;
 
-  # SOPS configuration
-  sops.age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
-
-  # SOPS secrets
-  sops.secrets.user_password = {
-    sopsFile = ../../secrets/secrets.yaml;
+  # SOPS configuration & secrets
+  sops = {
+    age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
+    secrets = {
+      user_password = {
+        sopsFile = ../../secrets/secrets.yaml;
+      };
+      cloudflared_token = {
+        sopsFile = ../../secrets/secrets.yaml;
+      };
+    };
   };
 
   users.users.${user} = {
@@ -78,4 +88,17 @@ in
   };
 
   virtualisation.docker.enable = true;
+
+  # Cloudflared service (Manual start using sops token)
+
+  systemd.services.cloudflared-manual = {
+    description = "Cloudflared Tunnel (Manual)";
+    after = [ "network.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel run --token-file ${config.sops.secrets.cloudflared_token.path}";
+      Restart = "always";
+      User = user;
+    };
+  };
+  systemd.services.cloudflared-manual.wantedBy = lib.mkForce [ ];
 }
