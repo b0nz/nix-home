@@ -127,6 +127,10 @@ in
     "${config.home.homeDirectory}/.ssh/id_default"
   ];
 
+  # Fix sops-nix launchd PATH on macOS (needs getconf in /usr/bin)
+  launchd.agents.sops-nix.config.EnvironmentVariables.PATH =
+    pkgs.lib.mkForce "/usr/bin:/bin:/usr/sbin:/sbin";
+
   programs = {
     home-manager.enable = true;
 
