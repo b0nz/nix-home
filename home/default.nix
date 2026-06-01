@@ -99,6 +99,7 @@ in
         # Editor
         vim
         neovim
+        obsidian
 
         # Shell
         fish

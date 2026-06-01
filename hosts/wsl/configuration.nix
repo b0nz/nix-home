@@ -46,6 +46,7 @@ in
       };
       cloudflared_token = {
         sopsFile = ../../secrets/secrets.yaml;
+        owner = user;
       };
     };
   };
