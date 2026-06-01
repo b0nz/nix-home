@@ -102,6 +102,56 @@
           '';
         };
 
+        # Pentest Environment
+        pentest = pkgs.mkShell {
+          name = "pentest";
+          packages =
+            with pkgs;
+            [
+              fish
+
+              # Recon & Scanning
+              nmap
+              masscan
+              rustscan
+              naabu
+              subfinder
+              httpx
+              dnsrecon
+              dnsenum
+
+              # Web Testing
+              ffuf
+              gobuster
+              nikto
+              sqlmap
+              whatweb
+              wfuzz
+
+              # OSINT
+              theharvester
+              amass
+              sherlock
+
+              # Exploit & Cracking
+              john
+              hashcat
+
+              # Utility
+              netcat-gnu
+              curl
+              jq
+            ]
+            ++ lib.optionals stdenv.isLinux [
+              hydra
+              proxychains
+            ];
+          shellHook = ''
+            echo "🛡️  Pentest Environment Active"
+            exec ${pkgs.fish}/bin/fish
+          '';
+        };
+
         # Android Environment
         android = pkgs.mkShell {
           name = "android";
