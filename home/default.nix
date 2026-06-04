@@ -87,7 +87,8 @@ in
         btop
 
         # TUI App
-        lazygit
+        gitui
+        # lazygit
         lazydocker
 
         # AI
