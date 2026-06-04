@@ -60,7 +60,7 @@ in
   home = rec {
     username = "b0nz";
     homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
-    stateVersion = "25.11";
+    stateVersion = "26.05";
 
     # Set fish as default shell
     sessionVariables = {
@@ -73,7 +73,8 @@ in
       with pkgs;
       [
         fastfetch
-        neofetch
+        # neofetch removed in 26.05, use neowofetch from hyfetch instead
+        hyfetch
         git
         wget
         curl
@@ -241,14 +242,12 @@ in
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "*" = {
-          extraOptions = {
-            AddKeysToAgent = "yes";
-          }
-          // pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
-            UseKeychain = "yes";
-          };
+          AddKeysToAgent = "yes";
+        }
+        // pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
+          UseKeychain = "yes";
         };
       };
     };

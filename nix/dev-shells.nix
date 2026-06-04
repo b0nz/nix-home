@@ -1,7 +1,11 @@
 {
   perSystem =
-    { config, pkgs, ... }:
-
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     {
       devShells = {
         default = pkgs.mkShell {
@@ -19,12 +23,12 @@
         };
 
         # Nodejs 20 Environment
-        nodejs20 = pkgs.mkShell {
-          name = "nodejs20";
+        nodejs_20 = pkgs.mkShell {
+          name = "nodejs-20";
           packages = with pkgs; [
             fish
             nodejs_20
-            nodePackages.pnpm
+            pnpm
           ];
           shellHook = ''
             echo "🟢 Nodejs 20 Environment Active"
@@ -39,7 +43,7 @@
           packages = with pkgs; [
             fish
             nodejs_22
-            nodePackages.pnpm
+            pnpm
           ];
           shellHook = ''
             echo "🟢 Nodejs 22 Environment Active"
@@ -54,7 +58,7 @@
           packages = with pkgs; [
             fish
             nodejs_24
-            nodePackages.pnpm
+            pnpm
           ];
           shellHook = ''
             echo "🟢 Nodejs 24 Environment Active"
@@ -142,7 +146,7 @@
               curl
               jq
             ]
-            ++ lib.optionals stdenv.isLinux [
+            ++ lib.optionals pkgs.stdenv.isLinux [
               hydra
               proxychains
             ];
@@ -153,25 +157,32 @@
         };
 
         # Android Environment
-        android = pkgs.mkShell {
-          name = "android";
-          buildInputs = with pkgs; [
-            fish
-            android-tools
-            android-studio
-            zulu17
-          ];
+        android =
+          let
+            androidPkgs = import pkgs.path {
+              inherit (pkgs) system;
+              config.allowUnfree = true;
+            };
+          in
+          androidPkgs.mkShell {
+            name = "android";
+            buildInputs = with androidPkgs; [
+              fish
+              android-tools
+              android-studio
+              zulu17
+            ];
 
-          shellHook = ''
-            export ANDROID_HOME=$HOME/Android/Sdk
-            export PATH=$PATH:$ANDROID_HOME/emulator
-            export PATH=$PATH:$ANDROID_HOME/platform-tools
+            shellHook = ''
+              export ANDROID_HOME=$HOME/Android/Sdk
+              export PATH=$PATH:$ANDROID_HOME/emulator
+              export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-            echo "🤖 Android Dev Environment Ready"
-            echo "KVM Access: $([ -w /dev/kvm ] && echo '✅ Granted' || echo '❌ Denied (Check configuration.nix)')"
-            exec ${pkgs.fish}/bin/fish
-          '';
-        };
+              echo "🤖 Android Dev Environment Ready"
+              echo "KVM Access: $([ -w /dev/kvm ] && echo '✅ Granted' || echo '❌ Denied (Check configuration.nix)')"
+              exec ${pkgs.fish}/bin/fish
+            '';
+          };
       };
     };
 }
