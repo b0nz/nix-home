@@ -23,8 +23,8 @@
         };
 
         # Nodejs 20 Environment
-        nodejs_20 = pkgs.mkShell {
-          name = "nodejs-20";
+        nodejs20 = pkgs.mkShell {
+          name = "nodejs20";
           packages = with pkgs; [
             fish
             nodejs_20

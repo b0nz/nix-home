@@ -54,6 +54,8 @@ let
     nv = "nvim";
     g = "git";
   };
+
+  opencode-ai = (import ./opencode-ai.nix { inherit pkgs; }).home.packages;
 in
 
 {
@@ -89,13 +91,12 @@ in
 
         # TUI App
         gitui
-        # lazygit
+        lazygit
         lazydocker
 
         # AI
         github-copilot-cli
         claude-code
-        opencode
         ollama
 
         # Editor
@@ -110,6 +111,7 @@ in
         docker
         docker-compose
       ]
+      ++ opencode-ai
       ++ pkgs.lib.optionals pkgs.stdenv.isDarwin (import ./mac-apps.nix { inherit pkgs; }).home.packages;
   };
 
