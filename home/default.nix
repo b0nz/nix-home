@@ -120,10 +120,6 @@ in
     ./git.nix
     ./tmux.nix
     ./fonts.nix
-
-    # vim
-    # inputs.nixvim.homeModules.nixvim
-    # ./nvim
   ];
 
   sops.defaultSopsFile = ../secrets/secrets.yaml;

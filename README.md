@@ -6,6 +6,9 @@ Personal Nix-based home and system configuration, managing macOS (aarch64-darwin
 
 ```
 ├── flake.nix              # Entry point
+├── flake.lock             # Locked dependency versions
+├── .sops.yaml             # SOPS age encryption config
+├── .pre-commit-config.yaml # Generated pre-commit hooks (deadnix, nixfmt, statix, shellcheck, stylua)
 ├── nix/
 │   ├── outputs.nix        # Flake output assembly
 │   ├── dev-shells.nix     # Development shells (node, go, rust, android)
@@ -16,11 +19,12 @@ Personal Nix-based home and system configuration, managing macOS (aarch64-darwin
 ├── home/
 │   ├── default.nix        # Home-manager user config
 │   ├── git.nix            # Git with SOPS conditional identities
-│   ├── tmux.nix           # Tmux with Catppuccin theme
+│   ├── tmux.nix           # Tmux with Catppuccin theme (see docs/tmux.md)
 │   ├── fonts.nix          # FiraCode Nerd Font
 │   ├── mac-apps.nix       # macOS-specific packages
 │   ├── starship.toml      # Starship prompt theme
-│   └── nvim/              # Neovim config (inactive, using LazyVim)
+├── docs/
+│   └── tmux.md            # Tmux keybindings and config reference
 └── secrets/
     └── secrets.yaml       # SOPS-encrypted secrets
 ```
@@ -65,7 +69,7 @@ nix develop .#android    # Android SDK/Studio + zulu17
 ## Key Programs
 
 - **Shell**: fish + starship prompt
-- **Terminal multiplexer**: tmux (Catppuccin Macchiato)
+- **Terminal multiplexer**: tmux (Catppuccin Macchiato) — [keybindings & config](docs/tmux.md)
 - **Editor**: Neovim (via LazyVim), Vim
 - **Git**: eza, bat, lazygit, direnv
 - **AI**: Claude Code, GitHub Copilot CLI, opencode
