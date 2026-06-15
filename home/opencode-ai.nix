@@ -3,11 +3,11 @@
 let
   opencode-ai = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "opencode-ai";
-    version = "1.16.2";
+    version = "1.17.0";
 
     src = pkgs.fetchurl {
       url = "https://registry.npmjs.org/opencode-linux-x64/-/opencode-linux-x64-${version}.tgz";
-      hash = "sha256-oi35alYuZ84kR0bZkFbsrJ5m3fjmnI15iH4dYw9NnDE=";
+      hash = "sha256-rVJj55HJ44K9zdSmhtI1w4QglJRvBpSN3cHwMq7/wRQ=";
     };
 
     nativeBuildInputs = [
