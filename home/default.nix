@@ -97,7 +97,7 @@ in
         # AI
         github-copilot-cli
         claude-code
-        ollama
+        llama-cpp
 
         # Editor
         vim
