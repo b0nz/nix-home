@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:LnL7/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -27,7 +27,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hermes-agent.url = "github:NousResearch/hermes-agent";
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    serena.url = "github:oraios/serena";
+  };
+
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7Mq4K0g=" ];
   };
 
   outputs = inputs: import ./nix/outputs.nix { inherit inputs; };

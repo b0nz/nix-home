@@ -55,7 +55,17 @@ let
     g = "git";
   };
 
-  opencode-ai = (import ./opencode-ai.nix { inherit pkgs; }).home.packages;
+  inherit (inputs.llm-agents.packages.${pkgs.system})
+    antigravity-cli
+    claude-code
+    opencode
+    copilot-cli
+    rtk
+    hermes-agent
+    hermes-desktop
+    ;
+
+  inherit (inputs.serena.packages.${pkgs.system}) serena;
 in
 
 {
@@ -95,9 +105,15 @@ in
         lazydocker
 
         # AI
-        github-copilot-cli
-        claude-code
         llama-cpp
+        antigravity-cli
+        claude-code
+        opencode
+        copilot-cli
+        hermes-agent
+        hermes-desktop
+        serena
+        rtk
 
         # Editor
         vim
@@ -111,7 +127,6 @@ in
         docker
         docker-compose
       ]
-      ++ opencode-ai
       ++ pkgs.lib.optionals pkgs.stdenv.isDarwin (import ./mac-apps.nix { inherit pkgs; }).home.packages;
   };
 

@@ -8,7 +8,6 @@ let
     home-manager
     flake-parts
     sops-nix
-    hermes-agent
     ;
 in
 flake-parts.lib.mkFlake { inherit inputs; } {
@@ -44,9 +43,6 @@ flake-parts.lib.mkFlake { inherit inputs; } {
       LocaldevWSL = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          # hermes-agent
-          hermes-agent.nixosModules.default
-
           # The WSL Module (Replaces <nixos-wsl/modules>)
           nixos-wsl.nixosModules.default
 
@@ -74,9 +70,6 @@ flake-parts.lib.mkFlake { inherit inputs; } {
       LocaldevMac = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin"; # or "x86_64-darwin" depending on your Mac
         modules = [
-          # hermes-agent
-          hermes-agent.nixosModules.default
-
           # System Config
           ../hosts/mac/configuration.nix
 
