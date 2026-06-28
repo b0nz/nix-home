@@ -62,7 +62,6 @@ let
     copilot-cli
     rtk
     hermes-agent
-    hermes-desktop
     ;
 
   inherit (inputs.serena.packages.${pkgs.system}) serena;
@@ -111,7 +110,6 @@ in
         opencode
         copilot-cli
         hermes-agent
-        hermes-desktop
         serena
         rtk
 

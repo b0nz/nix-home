@@ -27,6 +27,7 @@ in
       set -as terminal-overrides ',*:Tc'
       set -g default-terminal "tmux-256color"
       set -g pane-base-index 1
+      set -g allow-passthrough on
 
       # Mouse support
       set -g mouse on
