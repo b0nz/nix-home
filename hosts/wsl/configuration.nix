@@ -68,16 +68,19 @@ in
   };
 
   nix = {
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      auto-optimise-store = true;
+      trusted-users = [ "b0nz" ];
+    };
     gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
     };
-    settings.auto-optimise-store = true;
   };
 
   security.sudo.wheelNeedsPassword = true;
