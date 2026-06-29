@@ -32,6 +32,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-legacy.url = "github:nixos/nixpkgs/nixos-25.11";
+
     serena.url = "github:oraios/serena";
   };
 

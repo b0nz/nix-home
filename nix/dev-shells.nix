@@ -4,8 +4,12 @@
       config,
       pkgs,
       lib,
+      inputs',
       ...
     }:
+    let
+      legacyPkgs = inputs'.nixpkgs-legacy.legacyPackages;
+    in
     {
       devShells = {
         default = pkgs.mkShell {
@@ -27,9 +31,7 @@
           name = "nodejs20";
           packages = with pkgs; [
             fish
-            nodejs_20
-            pnpm
-          ];
+          ] ++ [ legacyPkgs.nodejs_20 legacyPkgs.pnpm];
           shellHook = ''
             echo "🟢 Nodejs 20 Environment Active"
             export PATH="$PWD/node_modules/.bin:$PATH"

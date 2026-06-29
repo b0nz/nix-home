@@ -273,6 +273,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-legacy": {
+      "locked": {
+        "lastModified": 1782498288,
+        "narHash": "sha256-8/X3yyTXiE82b38n32ItbOqfWOVBl+gKa8fILyZfR4Q=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "3cac626ec5e3703e835f227687e88aa9e2f25701",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1777168982,
@@ -384,6 +400,7 @@
         "nix-darwin": "nix-darwin",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-legacy": "nixpkgs-legacy",
         "pre-commit-hooks": "pre-commit-hooks",
         "serena": "serena",
         "sops-nix": "sops-nix"
