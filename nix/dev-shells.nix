@@ -29,9 +29,16 @@
         # Nodejs 20 Environment
         nodejs20 = pkgs.mkShell {
           name = "nodejs20";
-          packages = with pkgs; [
-            fish
-          ] ++ [ legacyPkgs.nodejs_20 legacyPkgs.pnpm];
+          packages =
+            with pkgs;
+            [
+              fish
+            ]
+            ++ [
+              legacyPkgs.nodejs_20
+              legacyPkgs.pnpm
+              legacyPkgs.bun
+            ];
           shellHook = ''
             echo "🟢 Nodejs 20 Environment Active"
             export PATH="$PWD/node_modules/.bin:$PATH"
