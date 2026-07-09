@@ -65,6 +65,22 @@ let
     ;
 
   inherit (inputs.serena.packages.${pkgs.system}) serena;
+
+  # theme.sh: interactive terminal theme switcher (OSC 4/11)
+  themeSh = pkgs.stdenv.mkDerivation {
+    name = "theme.sh";
+    src = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/lemnos/theme.sh/master/bin/theme.sh";
+      sha256 = "606a101bdd18a101c8155a488b5506a7b219fd54005766505356d8177fdb0ff9";
+    };
+    dontUnpack = true;
+    dontBuild = true;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp $src $out/bin/theme.sh
+      chmod +x $out/bin/theme.sh
+    '';
+  };
 in
 
 {
@@ -120,12 +136,23 @@ in
 
         # Shell
         fish
+        fzf
+        themeSh
 
         # Docker
         docker
         docker-compose
       ]
       ++ pkgs.lib.optionals pkgs.stdenv.isDarwin (import ./mac-apps.nix { inherit pkgs; }).home.packages;
+
+    # Starship config variants for terminal theme switching
+    file.".config/starship-gruvbox.toml" = {
+      text =
+        builtins.replaceStrings
+          [ "palette = \"catppuccin_macchiato\"" ]
+          [ "palette = \"gruvbox_material_light_hard\"" ]
+          (builtins.readFile ./starship.toml);
+    };
   };
 
   imports = [
@@ -195,6 +222,20 @@ in
         # SSH agent setup
         ${fishSshInit}
 
+        # Terminal theme (theme.sh) — load last-used theme on start
+        if type -q theme.sh
+            if test -e ~/.theme_history
+                set -l last_theme (theme.sh -l | tail -n1)
+                theme.sh $last_theme
+                switch $last_theme
+                    case "*gruvbox*"
+                        set -gx STARSHIP_CONFIG ~/.config/starship-gruvbox.toml
+                    case "*"
+                        set -gx STARSHIP_CONFIG ~/.config/starship.toml
+                end
+            end
+        end
+
         # Auto-launch tmux
         if status --is-interactive
         and not set -q TMUX
@@ -206,6 +247,42 @@ in
       functions = {
         fish_greeting = {
           body = "";
+        };
+        th = {
+          body = ''
+            theme.sh -i $argv
+            set -l last_theme (theme.sh -l | tail -n1)
+            switch $last_theme
+                case "*gruvbox*"
+                    set -gx STARSHIP_CONFIG ~/.config/starship-gruvbox.toml
+                case "*"
+                    set -gx STARSHIP_CONFIG ~/.config/starship.toml
+            end
+          '';
+        };
+        thl = {
+          body = ''
+            theme.sh --light -i $argv
+            set -l last_theme (theme.sh -l | tail -n1)
+            switch $last_theme
+                case "*gruvbox*"
+                    set -gx STARSHIP_CONFIG ~/.config/starship-gruvbox.toml
+                case "*"
+                    set -gx STARSHIP_CONFIG ~/.config/starship.toml
+            end
+          '';
+        };
+        thd = {
+          body = ''
+            theme.sh --dark -i $argv
+            set -l last_theme (theme.sh -l | tail -n1)
+            switch $last_theme
+                case "*gruvbox*"
+                    set -gx STARSHIP_CONFIG ~/.config/starship-gruvbox.toml
+                case "*"
+                    set -gx STARSHIP_CONFIG ~/.config/starship.toml
+            end
+          '';
         };
       };
     };
