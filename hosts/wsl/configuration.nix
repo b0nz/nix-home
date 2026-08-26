@@ -32,6 +32,7 @@ in
     gcc
     gnumake
     python3
+    jq
   ];
 
   # Enable fish shell program

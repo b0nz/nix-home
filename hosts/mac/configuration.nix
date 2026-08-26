@@ -22,6 +22,7 @@ in
     brews = [
       # utils
       "mole"
+      "jq"
     ];
     casks = [
       "cloudflare-warp"
