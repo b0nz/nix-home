@@ -37,10 +37,5 @@
     serena.url = "github:oraios/serena";
   };
 
-  nixConfig = {
-    extra-substituters = [ "https://cache.numtide.com" ];
-    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7Mq4K0g=" ];
-  };
-
   outputs = inputs: import ./nix/outputs.nix { inherit inputs; };
 }
