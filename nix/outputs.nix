@@ -9,6 +9,11 @@ let
     flake-parts
     sops-nix
     ;
+
+  myLib = import ../lib;
+  inherit (myLib) user stateVersion;
+
+  specialArgs = { inherit inputs user stateVersion; };
 in
 flake-parts.lib.mkFlake { inherit inputs; } {
   systems = [
@@ -24,42 +29,33 @@ flake-parts.lib.mkFlake { inherit inputs; } {
     ./pre-commit.nix
   ];
 
-  # ==========================================
-  # GLOBAL SYSTEM CONFIGURATION
-  # ==========================================
   flake = {
     homeConfigurations = {
-      "b0nz@LocaldevMac" = home-manager.lib.homeManagerConfiguration {
+      "${user}@LocaldevMac" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "aarch64-darwin";
           config.allowUnfree = true;
         };
         modules = [ ../home ];
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = specialArgs;
       };
     };
 
     nixosConfigurations = {
       LocaldevWSL = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = specialArgs;
         modules = [
-          # The WSL Module (Replaces <nixos-wsl/modules>)
           nixos-wsl.nixosModules.default
-
-          # SOPS for secrets management
           sops-nix.nixosModules.sops
-
-          # System Config
           ../hosts/wsl/configuration.nix
-
-          # Home Manager Module (Integrated into the system)
           home-manager.nixosModules.home-manager
           {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.b0nz = import ../home;
-              extraSpecialArgs = { inherit inputs; };
+              users.${user} = import ../home;
+              extraSpecialArgs = specialArgs;
             };
           }
         ];
@@ -68,19 +64,17 @@ flake-parts.lib.mkFlake { inherit inputs; } {
 
     darwinConfigurations = {
       LocaldevMac = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin"; # or "x86_64-darwin" depending on your Mac
+        system = "aarch64-darwin";
+        specialArgs = specialArgs;
         modules = [
-          # System Config
           ../hosts/mac/configuration.nix
-
-          # Home Manager Module
           home-manager.darwinModules.home-manager
           {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.b0nz = import ../home;
-              extraSpecialArgs = { inherit inputs; };
+              users.${user} = import ../home;
+              extraSpecialArgs = specialArgs;
             };
           }
         ];

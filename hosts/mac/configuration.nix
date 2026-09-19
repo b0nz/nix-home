@@ -1,8 +1,4 @@
-{ pkgs, ... }:
-
-let
-  user = "b0nz";
-in
+{ pkgs, user, stateVersion, ... }:
 {
   # nix-darwin specific settings
 
@@ -33,8 +29,8 @@ in
 
   # System settings
   system = {
-    stateVersion = 5;
-    primaryUser = "b0nz";
+    stateVersion = stateVersion.darwin;
+    primaryUser = user;
 
     defaults = {
       # Finder settings
@@ -79,7 +75,7 @@ in
         "tunnel"
         "run"
         "--token-file"
-        "/Users/b0nz/.config/sops-nix/secrets/cloudflared_token"
+        "/Users/${user}/.config/sops-nix/secrets/cloudflared_token"
       ];
       RunAtLoad = false;
       KeepAlive = false;
