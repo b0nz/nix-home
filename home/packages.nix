@@ -66,6 +66,7 @@ in
       fish
       fzf
       themeSh
+      devenv
 
       # Docker
       docker
