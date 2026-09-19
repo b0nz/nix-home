@@ -2,14 +2,12 @@
   pkgs,
   lib,
   config,
+  user,
+  stateVersion,
   ...
 }:
-
-let
-  user = "b0nz";
-in
 {
-  system.stateVersion = "26.05";
+  system.stateVersion = stateVersion.nixos;
 
   wsl = {
     enable = true;
@@ -42,8 +40,11 @@ in
   sops = {
     age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
     secrets = {
-      user_password = {
+      ssh_id_default = {
         sopsFile = ../../secrets/secrets.yaml;
+        owner = user;
+        path = "/home/${user}/.ssh/id_default";
+        mode = "0600";
       };
       cloudflared_token = {
         sopsFile = ../../secrets/secrets.yaml;
@@ -62,10 +63,7 @@ in
       "kvm"
       "adbusers"
       "docker"
-    ]; # 'wheel' allows sudo
-
-    # Use SOPS encrypted hashed password
-    hashedPasswordFile = "/run/secrets/user_password";
+    ];
   };
 
   nix = {
@@ -75,7 +73,7 @@ in
         "flakes"
       ];
       auto-optimise-store = true;
-      trusted-users = [ "b0nz" ];
+      trusted-users = [ user ];
     };
     gc = {
       automatic = true;
