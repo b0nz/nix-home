@@ -1,4 +1,9 @@
-{ pkgs, user, stateVersion, ... }:
+{
+  pkgs,
+  user,
+  stateVersion,
+  ...
+}:
 {
   # nix-darwin specific settings
 
@@ -65,6 +70,22 @@
     shellInit = ''
       fish_add_path /opt/homebrew/bin
     '';
+  };
+
+  # Raise the system-wide default open-file limit (macOS defaults to a soft
+  # limit of 256, which `nix flake update`/git packfile indexing can exceed)
+  launchd.daemons."limit.maxfiles" = {
+    serviceConfig = {
+      Label = "limit.maxfiles";
+      ProgramArguments = [
+        "launchctl"
+        "limit"
+        "maxfiles"
+        "65536"
+        "200000"
+      ];
+      RunAtLoad = true;
+    };
   };
 
   # Cloudflared LaunchAgent (Manual start)

@@ -22,6 +22,8 @@
     ./shell
     ./programs/ssh.nix
     ./programs/direnv.nix
+    ./programs/nixvim.nix
+    inputs.nixvim.homeManagerModules.nixvim
     ./appearance
     ./git.nix
     ./tmux.nix
