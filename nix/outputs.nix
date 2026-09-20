@@ -44,7 +44,7 @@ flake-parts.lib.mkFlake { inherit inputs; } {
     nixosConfigurations = {
       LocaldevWSL = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = specialArgs;
+        inherit specialArgs;
         modules = [
           nixos-wsl.nixosModules.default
           sops-nix.nixosModules.sops
@@ -65,7 +65,7 @@ flake-parts.lib.mkFlake { inherit inputs; } {
     darwinConfigurations = {
       LocaldevMac = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = specialArgs;
+        inherit specialArgs;
         modules = [
           ../hosts/mac/configuration.nix
           home-manager.darwinModules.home-manager

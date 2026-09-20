@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 let
-  inherit (inputs.llm-agents.packages.${pkgs.system})
+  inherit (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system})
     antigravity-cli
     claude-code
     opencode
@@ -8,7 +8,7 @@ let
     rtk
     ;
 
-  inherit (inputs.serena.packages.${pkgs.system}) serena;
+  inherit (inputs.serena.packages.${pkgs.stdenv.hostPlatform.system}) serena;
 
   themeSh = pkgs.stdenv.mkDerivation {
     name = "theme.sh";
@@ -26,50 +26,48 @@ let
   };
 in
 {
-  home.packages =
-    with pkgs;
-    [
-      fastfetch
-      hyfetch
-      git
-      wget
-      curl
-      unzip
-      ripgrep
+  home.packages = with pkgs; [
+    fastfetch
+    hyfetch
+    git
+    wget
+    curl
+    unzip
+    ripgrep
 
-      # Network
-      cloudflared
+    # Network
+    cloudflared
 
-      # Monitoring
-      btop
+    # Monitoring
+    btop
 
-      # TUI
-      gitui
-      lazygit
-      lazydocker
+    # TUI
+    gitui
+    lazygit
+    lazydocker
 
-      # AI
-      llama-cpp
-      antigravity-cli
-      claude-code
-      opencode
-      copilot-cli
-      serena
-      rtk
+    # AI
+    llama-cpp
+    antigravity-cli
+    claude-code
+    opencode
+    copilot-cli
+    serena
+    rtk
 
-      # Editor
-      vim
-      neovim
-      obsidian
+    # Editor
+    vim
+    neovim
+    obsidian
 
-      # Shell
-      fish
-      fzf
-      themeSh
-      devenv
+    # Shell
+    fish
+    fzf
+    themeSh
+    devenv
 
-      # Docker
-      docker
-      docker-compose
-    ];
+    # Docker
+    docker
+    docker-compose
+  ];
 }

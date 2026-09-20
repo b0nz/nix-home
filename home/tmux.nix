@@ -67,6 +67,12 @@ in
       set -g status-position top
       set -g status-style bg=default
 
+      # Close a window tab: right-click (if your terminal forwards it) or
+      # double left-click (always reaches tmux, since single left-click
+      # already does for window switching)
+      bind-key -n MouseDown3Status kill-window -t=
+      bind-key -n DoubleClick1Status kill-window -t=
+
       # Pane divider color (should be before tpm to override catppuccin)
       set -g pane-border-status top
       set -g pane-border-format ""
@@ -97,11 +103,9 @@ in
         extraConfig = ''
           set -g @catppuccin_flavor 'macchiato'
           set -g @catppuccin_window_status_style "basic"
-          set -g @catppuccin_window_number_position "right"
-          set -g @catppuccin_window_default_fill "number"
-          set -g @catppuccin_window_default_text "#W"
-          set -g @catppuccin_window_current_fill "number"
-          set -g @catppuccin_window_current_text "#W"
+          set -g @catppuccin_window_number_position "left"
+          set -g @catppuccin_window_text " ✕"
+          set -g @catppuccin_window_current_text " ✕"
           set -g @catppuccin_status_right_separator "█"
           set -g @catppuccin_status_left_separator "█"
 

@@ -44,6 +44,8 @@ A reference for the tmux configuration in `home/tmux.nix`.
 
 - Positioned at the **top** of the screen
 - Catppuccin Macchiato theme
+- Window tabs show only the window number plus a `✕` close icon
+- Right-click, or double left-click, a window tab to close (kill) that window (right-click only works if your terminal forwards it to tmux instead of showing its own context menu)
 - Pane borders: subtle `#45475a` with top labels
 - Right status shows session name
 

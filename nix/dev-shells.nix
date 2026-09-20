@@ -169,7 +169,7 @@
         android =
           let
             androidPkgs = import pkgs.path {
-              inherit (pkgs) system;
+              system = pkgs.stdenv.hostPlatform.system;
               config.allowUnfree = true;
             };
           in
