@@ -56,6 +56,7 @@ flake-parts.lib.mkFlake { inherit inputs; } {
               useUserPackages = true;
               users.${user} = import ../home;
               extraSpecialArgs = specialArgs;
+              backupFileExtension = "backup";
             };
           }
         ];
