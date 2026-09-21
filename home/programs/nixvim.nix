@@ -35,10 +35,7 @@
       clipboard = "unnamedplus";
     };
 
-    colorschemes.tokyonight = {
-      enable = true;
-      settings.style = "night";
-    };
+    colorschemes.gruvbox.enable = true;
 
     keymaps = [
       {
@@ -112,6 +109,22 @@
         key = "<Esc>";
         action = "<cmd>nohlsearch<CR>";
         options.desc = "Clear search highlight";
+      }
+      {
+        mode = "n";
+        key = "<leader>uC";
+        action = "<cmd>Telescope colorscheme<CR>";
+        options.desc = "Colorscheme picker";
+      }
+      {
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
+        key = "<C-LeftMouse>";
+        action = "<LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>";
+        options.desc = "Go to definition";
       }
     ];
 
@@ -202,7 +215,19 @@
         };
       };
 
-      lualine.enable = true;
+      lualine = {
+        enable = true;
+        settings.options = {
+          section_separators = {
+            left = "";
+            right = "";
+          };
+          component_separators = {
+            left = "🞂";
+            right = "🞀";
+          };
+        };
+      };
       bufferline.enable = true;
       neo-tree.enable = true;
       gitsigns.enable = true;
