@@ -22,7 +22,7 @@
     ./shell
     ./programs/ssh.nix
     ./programs/direnv.nix
-    ./programs/nixvim.nix
+    ./programs/nvim.nix
     inputs.nixvim.homeManagerModules.nixvim
     ./appearance
     ./git.nix

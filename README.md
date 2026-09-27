@@ -30,13 +30,15 @@ Personal Nix-based home and system configuration, managing macOS (aarch64-darwin
 │   │   └── bash.nix       # Bash shell config
 │   ├── programs/
 │   │   ├── ssh.nix        # SSH client config
-│   │   └── direnv.nix     # Direnv + nix-direnv
+│   │   ├── direnv.nix     # Direnv + nix-direnv
+│   │   └── nvim.nix/      # Neovim config (see docs/nixvim.md)
 │   ├── appearance/
 │   │   └── starship.nix   # Starship prompt + gruvbox theme variant
 │   └── platform/
 │       └── darwin.nix     # macOS-specific packages and launchd config
 ├── docs/
-│   └── tmux.md            # Tmux keybindings and config reference
+│   ├── tmux.md            # Tmux keybindings and config reference
+│   └── nixvim.md          # Neovim keybindings and config reference
 └── secrets/
     └── secrets.yaml       # SOPS-encrypted secrets
 ```
@@ -98,7 +100,7 @@ direnv allow
 
 - **Shell**: fish + starship prompt + theme.sh (terminal theme switcher)
 - **Terminal multiplexer**: tmux (Catppuccin Macchiato) — [keybindings & config](docs/tmux.md)
-- **Editor**: Neovim, Vim
+- **Editor**: Neovim (nixvim), Vim — [keybindings & config](docs/nixvim.md)
 - **Git**: lazygit, gitui — shell aliases via `g`-prefix (`gs`, `gp`, `glg`, ...)
 - **AI**: Claude Code, GitHub Copilot CLI, opencode, antigravity-cli
 - **Utils**: eza, bat, fzf, ripgrep, direnv, btop
