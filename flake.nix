@@ -34,8 +34,6 @@
 
     nixpkgs-legacy.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    serena.url = "github:oraios/serena";
-
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -49,4 +49,5 @@
   # --- Git: Remote Sync ---
   gout = "git log @{u}.. --oneline";
   gin = "git fetch && git log ..@{u} --oneline";
+  gfa = "git fetch --all";
 }

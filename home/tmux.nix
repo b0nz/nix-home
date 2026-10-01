@@ -19,15 +19,22 @@ in
     mouse = true;
     prefix = "C-b";
     sensibleOnTop = true;
-    terminal = "tmux-256color";
+    terminal = "screen-256color";
     shell = "${pkgs.fish}/bin/fish";
+    reverseSplit = true;
+    customPaneNavigationAndResize = true;
+    resizeAmount = 10;
 
     extraConfig = ''
       # Enable true color and UTF-8
       set -as terminal-overrides ',*:Tc'
-      set -g default-terminal "tmux-256color"
+      set -g default-terminal "screen-256color"
       set -g pane-base-index 1
       set -g allow-passthrough on
+
+      # Position status bar at top
+      set -g status-position top
+      set -g status-style bg=default
 
       # Mouse support
       set -g mouse on
@@ -42,18 +49,6 @@ in
       unbind '"'
       unbind %
 
-      # Vim-like pane switching
-      bind h select-pane -L
-      bind j select-pane -D
-      bind k select-pane -U
-      bind l select-pane -R
-
-      # Pane resizing
-      bind H resize-pane -L 10
-      bind J resize-pane -D 10
-      bind K resize-pane -U 10
-      bind L resize-pane -R 10
-
       # Copy mode (let tmux-yank handle the copying)
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi y send-keys -X copy-pipe
@@ -63,22 +58,21 @@ in
       bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe
       bind-key -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe
 
-      # Position status bar at top
-      set -g status-position top
-      set -g status-style bg=default
-
       # Close a window tab: right-click (if your terminal forwards it) or
       # double left-click (always reaches tmux, since single left-click
       # already does for window switching)
       bind-key -n MouseDown3Status kill-window -t=
       bind-key -n DoubleClick1Status kill-window -t=
 
-      # Pane divider color (should be before tpm to override catppuccin)
+      # Pane divider color
       set -g pane-border-status top
       set -g pane-border-format ""
 
-      set -g pane-border-style "fg=#45475a"   # Subtle gray border
-      set -g pane-active-border-style "fg=#45475a"  # Same color for active border
+      set -g pane-border-style "fg=default,bg=default"
+      set -g pane-active-border-style "fg=default,bg=default"
+
+      # Session/window picker
+      bind Space choose-tree -Zw
 
 
     '';
@@ -96,8 +90,16 @@ in
           set -g @yank_shell "${wsl-copy}/bin/wsl-copy"
         '';
       }
-      resurrect
-      continuum
+      { plugin = resurrect; }
+      {
+        plugin = continuum;
+        extraConfig = ''
+          set -g @resurrect-strategy-nvim 'session'
+          set -g @resurrect-capture-pane-contents 'on'
+          set -g @continuum-boot on
+          set -g @continuum-restore 'on'
+        '';
+      }
       {
         plugin = catppuccin;
         extraConfig = ''

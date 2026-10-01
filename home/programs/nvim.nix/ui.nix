@@ -1,20 +1,20 @@
 { pkgs, ... }:
 {
   programs.nixvim = {
-    colorscheme = "gruvbox";
+    colorscheme = "edge";
 
     globals = {
       elite_mode = 1;
       loaded_netrw = 1;
       loaded_netrwPlugin = 1;
       # edge colorscheme
-      # edge_style = "neon";
-      # edge_diagnostic_text_highlight = 1;
-      # edge_diagnostic_line_highlight = 1;
-      # edge_diagnostic_virtual_text = "grey";
-      # edge_dim_foreground = 1;
-      # edge_dim_inactive_windows = 1;
-      # edge_float_style = "bright";
+      edge_style = "neon";
+      edge_diagnostic_text_highlight = 1;
+      edge_diagnostic_line_highlight = 1;
+      edge_diagnostic_virtual_text = "grey";
+      edge_dim_foreground = 1;
+      edge_dim_inactive_windows = 1;
+      edge_float_style = "bright";
     };
 
     opts = {
@@ -348,8 +348,7 @@
           '';
         };
         settings = {
-          # theme = "edge";
-          theme = "gruvbox";
+          theme = "edge";
           options = {
             globalstatus = true;
             disabled_filetypes.__unkeyed-1 = "NvimTree";
@@ -361,8 +360,8 @@
             ];
             component_separators.left = "";
             component_separators.right = "";
-            section_separators.left = "";
-            section_separators.right = "";
+            section_separators.left = "█";
+            section_separators.right = "█";
           };
           sections = {
             lualine_a = [

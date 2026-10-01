@@ -39,18 +39,8 @@ in
 
       ${sshInit}
 
-      if type -q theme.sh
-          if test -e ~/.theme_history
-              set -l last_theme (theme.sh -l | tail -n1)
-              theme.sh $last_theme
-              switch $last_theme
-                  case "*gruvbox*"
-                      set -gx STARSHIP_CONFIG ~/.config/starship-gruvbox.toml
-                  case "*"
-                      set -gx STARSHIP_CONFIG ~/.config/starship.toml
-              end
-          end
-      end
+      # Match shell background to tmux pane background
+      printf '\e]11;#24273a\a'
 
       if status --is-interactive
       and not set -q TMUX
@@ -60,36 +50,6 @@ in
 
     functions = {
       fish_greeting.body = "";
-      th.body = ''
-        theme.sh -i $argv
-        set -l last_theme (theme.sh -l | tail -n1)
-        switch $last_theme
-            case "*gruvbox*"
-                set -gx STARSHIP_CONFIG ~/.config/starship-gruvbox.toml
-            case "*"
-                set -gx STARSHIP_CONFIG ~/.config/starship.toml
-        end
-      '';
-      thl.body = ''
-        theme.sh --light -i $argv
-        set -l last_theme (theme.sh -l | tail -n1)
-        switch $last_theme
-            case "*gruvbox*"
-                set -gx STARSHIP_CONFIG ~/.config/starship-gruvbox.toml
-            case "*"
-                set -gx STARSHIP_CONFIG ~/.config/starship.toml
-        end
-      '';
-      thd.body = ''
-        theme.sh --dark -i $argv
-        set -l last_theme (theme.sh -l | tail -n1)
-        switch $last_theme
-            case "*gruvbox*"
-                set -gx STARSHIP_CONFIG ~/.config/starship-gruvbox.toml
-            case "*"
-                set -gx STARSHIP_CONFIG ~/.config/starship.toml
-        end
-      '';
     };
   };
 }

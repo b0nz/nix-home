@@ -98,7 +98,7 @@ direnv allow
 
 ## Key Programs
 
-- **Shell**: fish + starship prompt + theme.sh (terminal theme switcher)
+- **Shell**: fish + starship prompt
 - **Terminal multiplexer**: tmux (Catppuccin Macchiato) — [keybindings & config](docs/tmux.md)
 - **Editor**: Neovim (nixvim), Vim — [keybindings & config](docs/nixvim.md)
 - **Git**: lazygit, gitui — shell aliases via `g`-prefix (`gs`, `gp`, `glg`, ...)
