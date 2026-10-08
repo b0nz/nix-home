@@ -76,6 +76,17 @@
           '';
         };
 
+        bun = pkgs.mkShell {
+          name = "bun";
+          packages = with pkgs; [
+            bun
+          ];
+          shellHook = ''
+            echo "🥟 Bun Environment Active"
+            bun --version
+          '';
+        };
+
         # Golang Environment
         go = pkgs.mkShell {
           name = "go";
