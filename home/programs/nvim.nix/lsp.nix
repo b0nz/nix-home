@@ -334,8 +334,19 @@
             installGhc = false;
           };
 
-          htmx.enable = !pkgs.stdenv.hostPlatform.isDarwin;
-          htmx.autostart = true;
+          htmx = {
+            enable = !pkgs.stdenv.hostPlatform.isDarwin;
+            autostart = true;
+            extraOptions.filetypes = [
+              "html"
+              "htmldjango"
+              "php"
+              "blade"
+              "vue"
+              "svelte"
+              "templ"
+            ];
+          };
 
           jsonls = {
             enable = true;
