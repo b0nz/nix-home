@@ -84,7 +84,34 @@
 
   security.sudo.wheelNeedsPassword = true;
 
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      glib
+      gtk3
+      nss
+      nspr
+      atk
+      cairo
+      pango
+      gdk-pixbuf
+      libdrm
+      mesa
+      alsa-lib
+      cups
+      dbus
+      at-spi2-atk
+      at-spi2-core
+      libxkbcommon
+      xorg.libX11
+      xorg.libXcomposite
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXrandr
+      expat
+    ];
+  };
 
   hardware.graphics = {
     enable = true;
