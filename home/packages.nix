@@ -4,9 +4,16 @@ let
     antigravity-cli
     claude-code
     opencode
-    copilot-cli
     rtk
+    pi
+    command-code
     ;
+  # upstream versionCheckHook fails: `copilot --version` prints nothing in sandbox
+  copilot-cli =
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.copilot-cli.overrideAttrs
+      {
+        doInstallCheck = false;
+      };
 in
 {
   home.packages = with pkgs; [
@@ -36,6 +43,8 @@ in
     opencode
     copilot-cli
     rtk
+    pi
+    command-code
 
     # Editor
     vim
