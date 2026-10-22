@@ -7,6 +7,7 @@ let
     rtk
     pi
     command-code
+    herdr
     ;
   # upstream versionCheckHook fails: `copilot --version` prints nothing in sandbox
   copilot-cli =
@@ -45,6 +46,7 @@ in
     rtk
     pi
     command-code
+    herdr
 
     # Editor
     vim
