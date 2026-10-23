@@ -6,7 +6,6 @@ let
     opencode
     rtk
     pi
-    command-code
     herdr
     ;
   # upstream versionCheckHook fails: `copilot --version` prints nothing in sandbox
@@ -15,6 +14,36 @@ let
       {
         doInstallCheck = false;
       };
+  claude-swap = pkgs.python3Packages.buildPythonApplication rec {
+    pname = "claude-swap";
+    version = "0.28.0";
+    format = "pyproject";
+
+    src = pkgs.python3Packages.fetchPypi {
+      inherit pname version;
+      hash = "";
+      # 1. Leave empty, run `nix run` or `home-manager switch`
+      # 2. It will fail and give you the correct sha256 hash. Paste it here.
+    };
+
+    nativeBuildInputs = with pkgs.python3Packages; [
+      setuptools
+      wheel
+    ];
+
+    propagatedBuildInputs = with pkgs.python3Packages; [
+      keyring
+      textual
+      # If the build fails complaining about missing modules, add them here
+    ];
+
+    meta = with pkgs.lib; {
+      description = "Multi-account switcher for Claude Code";
+      homepage = "https://github.com/realiti4/claude-swap";
+      license = licenses.mit;
+      mainProgram = "cswap";
+    };
+  };
 in
 {
   home.packages = with pkgs; [
@@ -45,7 +74,7 @@ in
     copilot-cli
     rtk
     pi
-    command-code
+    claude-swap
     herdr
 
     # Editor
