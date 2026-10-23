@@ -56,6 +56,7 @@
   users.users.${user} = {
     isNormalUser = true;
     description = user;
+    uid = 1001;
     shell = pkgs.fish;
     extraGroups = [
       "wheel"

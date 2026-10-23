@@ -20,21 +20,27 @@ let
     format = "pyproject";
 
     src = pkgs.python3Packages.fetchPypi {
-      inherit pname version;
-      hash = "";
+      pname = "claude_swap";
+      inherit version;
+      hash = "sha256-0+eW7kTa3e6zQmaFlNZZUXiEaclOiHFIx47vKU1qJZM=";
       # 1. Leave empty, run `nix run` or `home-manager switch`
       # 2. It will fail and give you the correct sha256 hash. Paste it here.
     };
 
     nativeBuildInputs = with pkgs.python3Packages; [
-      setuptools
-      wheel
+      hatchling
+      pythonRelaxDepsHook
+    ];
+
+    # Tell the hook to ignore textual version constraints
+    pythonRelaxDeps = [
+      "textual"
     ];
 
     propagatedBuildInputs = with pkgs.python3Packages; [
       keyring
       textual
-      # If the build fails complaining about missing modules, add them here
+      truststore
     ];
 
     meta = with pkgs.lib; {
