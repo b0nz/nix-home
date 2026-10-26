@@ -44,6 +44,7 @@ in
 
       if status --is-interactive
       and not set -q TMUX
+      and not set -q HERDR_PANE_ID
           exec tmux new-session -A -s fish
       end
     '';
