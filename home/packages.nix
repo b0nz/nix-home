@@ -15,6 +15,7 @@ let
         doInstallCheck = false;
       };
   rea = pkgs.callPackage ./pkgs/rea { };
+  terminal-browser = pkgs.callPackage ./pkgs/terminal-browser { };
   claude-swap = pkgs.python3Packages.buildPythonApplication rec {
     pname = "claude-swap";
     version = "0.28.0";
@@ -97,5 +98,7 @@ in
     # Docker
     docker
     docker-compose
-  ];
+  ]
+  # Prebuilt release only packaged for macOS
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [ terminal-browser ];
 }
