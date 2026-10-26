@@ -14,6 +14,7 @@ let
       {
         doInstallCheck = false;
       };
+  rea = pkgs.callPackage ./pkgs/rea { };
   claude-swap = pkgs.python3Packages.buildPythonApplication rec {
     pname = "claude-swap";
     version = "0.28.0";
@@ -82,6 +83,7 @@ in
     pi
     claude-swap
     herdr
+    rea
 
     # Editor
     vim
