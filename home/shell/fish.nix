@@ -40,12 +40,13 @@ in
       ${sshInit}
 
       # Match shell background to tmux pane background
-      printf '\e]11;#24273a\a'
+      # printf '\e]11;#24273a\a'
 
       if status --is-interactive
       and not set -q TMUX
       and not set -q HERDR_PANE_ID
-          exec tmux new-session -A -s fish
+          exec herdr
+          # exec tmux new-session -A -s fish
       end
     '';
 

@@ -41,7 +41,8 @@ in
       ${sshInit}
 
       if [ -n "$BASH_VERSION" ] && [ -z "$TMUX" ] && [ -z "$HERDR_PANE_ID" ] && [ -t 1 ]; then
-          exec tmux new-session -A -s bash
+          exec herdr
+          # exec tmux new-session -A -s bash
       fi
     '';
   };
