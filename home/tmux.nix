@@ -31,6 +31,8 @@ in
       set -g default-terminal "screen-256color"
       set -g pane-base-index 1
       set -g allow-passthrough on
+      # Let apps inside tmux (e.g. herdr) copy via OSC 52
+      set -g set-clipboard on
 
       # Position status bar at top
       set -g status-position top

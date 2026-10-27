@@ -54,51 +54,55 @@ let
   };
 in
 {
-  home.packages = with pkgs; [
-    fastfetch
-    hyfetch
-    git
-    wget
-    curl
-    unzip
-    ripgrep
+  home.packages =
+    with pkgs;
+    [
+      fastfetch
+      hyfetch
+      git
+      wget
+      curl
+      unzip
+      ripgrep
 
-    # Network
-    cloudflared
+      # Network
+      cloudflared
 
-    # Monitoring
-    btop
+      # Monitoring
+      btop
 
-    # TUI
-    gitui
-    lazygit
-    lazydocker
+      # TUI
+      gitui
+      lazygit
+      lazydocker
 
-    # AI
-    llama-cpp
-    antigravity-cli
-    claude-code
-    opencode
-    copilot-cli
-    rtk
-    pi
-    claude-swap
-    herdr
-    rea
+      # AI
+      llama-cpp
+      antigravity-cli
+      claude-code
+      opencode
+      copilot-cli
+      rtk
+      pi
+      claude-swap
+      herdr
+      rea
 
-    # Editor
-    vim
-    obsidian
+      # Editor
+      vim
+      obsidian
 
-    # Shell
-    fish
-    fzf
-    devenv
+      # Shell
+      fish
+      fzf
+      devenv
 
-    # Docker
-    docker
-    docker-compose
-  ]
-  # Prebuilt release only packaged for macOS
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [ terminal-browser ];
+      # Docker
+      docker
+      docker-compose
+    ]
+    # Prebuilt release only packaged for macOS
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ terminal-browser ]
+    # herdr copies via wl-copy under WSLg
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ wl-clipboard ];
 }
