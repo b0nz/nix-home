@@ -1,1 +1,1 @@
-{ imports = [ ./starship.nix ../fonts.nix ]; }
+{ imports = [ ./starship.nix ./eza.nix ../fonts.nix ]; }
