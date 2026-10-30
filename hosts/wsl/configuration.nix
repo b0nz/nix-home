@@ -40,12 +40,6 @@
   sops = {
     age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
     secrets = {
-      ssh_id_default = {
-        sopsFile = ../../secrets/secrets.yaml;
-        owner = user;
-        path = "/home/${user}/.ssh/id_default";
-        mode = "0600";
-      };
       cloudflared_token = {
         sopsFile = ../../secrets/secrets.yaml;
         owner = user;

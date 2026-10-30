@@ -31,7 +31,7 @@
   ];
 
   sops.defaultSopsFile = ../secrets/secrets.yaml;
-  sops.age.sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_default" ];
+  sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
   programs = {
     home-manager.enable = true;
