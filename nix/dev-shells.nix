@@ -4,12 +4,8 @@
       config,
       pkgs,
       lib,
-      inputs',
       ...
     }:
-    let
-      legacyPkgs = inputs'.nixpkgs-legacy.legacyPackages;
-    in
     {
       devShells = {
         default = pkgs.mkShell {
@@ -22,26 +18,6 @@
           shellHook = ''
             echo "🛠️  Dotfiles Config Environment Active"
             ${config."pre-commit".installationScript}
-            exec ${pkgs.fish}/bin/fish
-          '';
-        };
-
-        # Nodejs 20 Environment
-        nodejs20 = pkgs.mkShell {
-          name = "nodejs20";
-          packages =
-            with pkgs;
-            [
-              fish
-            ]
-            ++ [
-              legacyPkgs.nodejs_20
-              legacyPkgs.pnpm
-              legacyPkgs.bun
-            ];
-          shellHook = ''
-            echo "🟢 Nodejs 20 Environment Active"
-            export PATH="$PWD/node_modules/.bin:$PATH"
             exec ${pkgs.fish}/bin/fish
           '';
         };
@@ -71,6 +47,21 @@
           ];
           shellHook = ''
             echo "🟢 Nodejs 24 Environment Active"
+            export PATH="$PWD/node_modules/.bin:$PATH"
+            exec ${pkgs.fish}/bin/fish
+          '';
+        };
+
+        # Nodejs 26 Environment
+        nodejs26 = pkgs.mkShell {
+          name = "nodejs26";
+          packages = with pkgs; [
+            fish
+            nodejs_26
+            pnpm
+          ];
+          shellHook = ''
+            echo "🟢 Nodejs 26 Environment Active"
             export PATH="$PWD/node_modules/.bin:$PATH"
             exec ${pkgs.fish}/bin/fish
           '';
