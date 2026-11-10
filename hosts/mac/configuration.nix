@@ -29,6 +29,7 @@
       "cloudflare-warp"
       "steam"
       "rectangle"
+      "discord"
     ];
   };
 
