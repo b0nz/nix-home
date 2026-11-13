@@ -70,7 +70,7 @@ darwin-rebuild switch --flake ~/.config/nix-home#LocaldevMac
 
 Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) using age encryption.
 
-- `secrets/secrets.yaml` contains: personal email, work email, cloudflared token, SSH private key
+- `secrets/secrets.yaml` contains: personal email, work email, SSH private key
 - The age key at `~/.config/sops/age/keys.txt` is required to decrypt — keep a backup in a password manager
 - On WSL, sops-nix deploys `ssh_id_default` to `~/.ssh/id_default` (mode 0600) at system activation
 - Git uses SOPS templated configs for conditional per-repo identity:

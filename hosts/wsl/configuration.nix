@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  config,
   user,
   stateVersion,
   ...
@@ -39,12 +37,6 @@
   # SOPS configuration & secrets
   sops = {
     age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
-    secrets = {
-      cloudflared_token = {
-        sopsFile = ../../secrets/secrets.yaml;
-        owner = user;
-      };
-    };
   };
 
   users.users.${user} = {
@@ -113,17 +105,4 @@
   };
 
   virtualisation.docker.enable = true;
-
-  # Cloudflared service (Manual start using sops token)
-
-  systemd.services.cloudflared-manual = {
-    description = "Cloudflared Tunnel (Manual)";
-    after = [ "network.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel run --token-file ${config.sops.secrets.cloudflared_token.path}";
-      Restart = "always";
-      User = user;
-    };
-  };
-  systemd.services.cloudflared-manual.wantedBy = lib.mkForce [ ];
 }

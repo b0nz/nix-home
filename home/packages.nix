@@ -65,9 +65,6 @@ in
       unzip
       ripgrep
 
-      # Network
-      cloudflared
-
       # Monitoring
       btop
 

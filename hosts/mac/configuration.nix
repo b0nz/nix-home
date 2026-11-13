@@ -88,21 +88,4 @@
       RunAtLoad = true;
     };
   };
-
-  # Cloudflared LaunchAgent (Manual start)
-  launchd.user.agents.cloudflared = {
-    serviceConfig = {
-      ProgramArguments = [
-        "${pkgs.cloudflared}/bin/cloudflared"
-        "tunnel"
-        "run"
-        "--token-file"
-        "/Users/${user}/.config/sops-nix/secrets/cloudflared_token"
-      ];
-      RunAtLoad = false;
-      KeepAlive = false;
-      StandardOutPath = "/var/tmp/cloudflared.log";
-      StandardErrorPath = "/var/tmp/cloudflared.err";
-    };
-  };
 }
